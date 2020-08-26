@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/styles/Index.css")
+    @Styles.Render("~/Content/styles/content-style.css")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/proper")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    @Styles.Render("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap")
+    @Styles.Render("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap")
+    @Scripts.Render("~/ckeditor/ckeditor.js")
+    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.1/adapters/jquery.min.js")
+
+    @*<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">*@
+</head>
+<body>
+    <!--Search Pannel Start-->
+    <div class="container-fluid hidden-ele search-screen">
+        <div class="custom_close">
+            <span>X</span>
+        </div>
+
+        <div class="search-box">
+
+            <input type="text" name="searchbox" id="txtSearchBox" placeholder="SEARCH" />
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!--Search Pannel End-->
+    <!--Side Menu Pannel Start-->
+
+    <div class="side-menubar hidden-ele">
+        <div style="font-size:20px; width:80%;margin-top:1.5em;display:inline-block;" class="text-center">
+            EVERYDAY POWER
+        </div>
+        <div class="custom_close">
+            <span>X</span>
+        </div>
+
+    </div>
+
+    <!--Side Menu Pannel End-->
+
+
+    <div class="navbar company-div navbar-fixed-top">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="menu-icon-hidden">
+                    <span class="glyphicon glyphicon-align-left"></span>
+                </div>
+            </div>
+
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav mr-auto headList">
+                    
+                </ul>
+                <form class="search-icon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid body-content">
+        @RenderBody()
+    </div>
+
+    <footer class="text-center" style="height:28em;color:#606060;">
+        <div style="background-color:#181818;margin:0px;height:50%;padding-top:1em;">
+            <div style="height:2em;font-size:30px;">
+                <span class="glyphicon glyphicon-log-in"></span>
+            </div>
+            <div class="text-center social-media">
+                <span>
+                    <a href="https://www.facebook.com/EverydayPowerOfficial/" target="_blank" class="fa fa-facebook-official" data-wpel-link="external" rel="follow"></a>
+                </span>
+                <span>
+                    <a href="https://www.twitter.com/EverydayPowerOfficial/" target="_blank" class="fa fa-twitter-square" data-wpel-link="external" rel="follow"></a>
+                </span>
+                <span>
+                    <a href="https://www.pintrest.com/EverydayPowerOfficial/" target="_blank" class="fa fa-pinterest" data-wpel-link="external" rel="follow"></a>
+                </span>
+                <span>
+                    <a href="https://www.pintrest.com/EverydayPowerOfficial/" target="_blank" class="fa fa-instagram" data-wpel-link="external" rel="follow"></a>
+                </span>
+                <span>
+                    <a href="https://www.pintrest.com/EverydayPowerOfficial/" target="_blank" class="fa fa-youtube-play" data-wpel-link="external" rel="follow"></a>
+                </span>
+                <span>
+                    <a href="https://www.pintrest.com/EverydayPowerOfficial/" target="_blank" class="	fa fa-linkedin" data-wpel-link="external" rel="follow"></a>
+                </span>
+            </div>
+            <div class="navbar navbar-expand-sm navbar-right bg-dark">
+
+                <ul class="navbar-nav footer-links">
+                    <li>
+                        @Html.ActionLink("ABOUT US", "Index", "Home", new { area = "" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("ADVERTISE", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("SITEMAP", "About", "Home", new { @id = "dropdown-heading_Quotes" })
+                        <div class="dropdown-body">
+                            <div style="min-height:2em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; width:12em;padding:0.6em;">Sagar</div>
+                        </div>
+                    </li>
+                    <li>
+                        @Html.ActionLink("CONTACT US", "Contact", "Home", new { @id = "dropdown-heading_TopReads" })
+                        <div class="dropdown-body">
+                            <div style="min-height:2em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; width:12em;padding:0.6em;">Sagar</div>
+                        </div>
+                    </li>
+                    <li>
+                        @Html.ActionLink("WRITE FOR US", "Contact", "Home", new { @id = "dropdown-heading_Goals" })
+                        <div class="dropdown-body">
+                            <div style="min-height:2em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; width:12em;padding:0.6em;">Sagar</div>
+                        </div>
+                    </li>
+                    <li>
+                        @Html.ActionLink("PRIVACY POLICY", "Contact", "Home", new { @id = "dropdown-heading_Contact" })
+                        <div class="dropdown-body">
+                            <div style="min-height:2em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; width:12em;padding:0.6em;">Sagar</div>
+                        </div>
+                    </li>
+                    <li>
+                        @Html.ActionLink("TERMS OF SERVICE", "Contact", "Home", new { @id = "dropdown-heading_Career" })
+                        <div class="dropdown-body">
+                            <div style="min-height:2em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; width:12em;padding:0.6em;">Sagar</div>
+                        </div>
+                    </li>
+
+                </ul>
+                <div style="width:420px; display:inline-block;"></div>
+
+            </div>
+
+        </div>
+        <div style="background-color:black;height:50%;padding-top:1em;">
+            <span>&copy; @DateTime.Now.Year - My ASP.NET Application</span>
+            <p style="font-size:0.8em;">Exclusive Member of Mediavine Home</p>
+        </div>
+    </footer>
+    <!--Search Screen-->
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(document).ready(() => {
+
+
+             $.ajax({
+                url: '/Custom_Post/GetCategoryList',
+                method: 'get',
+                contentType: "application/json",
+                dataType:"json",
+                processData: false,
+                async:false,
+                success: function (data) {
+                    createNavbar(data);
+                  
+                },
+                error: function () {
+                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                }
+            });
+
+            $(".dropdown-heading").hover(event => {
+                var id = event.currentTarget.id;
+                var selector = "#" + id;
+                $(selector).next().show();
+                createListItems(selector);
+
+            },
+                event => {
+                    var id = event.currentTarget.id;
+                    var selector = "#" + id;
+                    $(selector).next().hide();
+                });
+
+            $(".custom_close").click(event => {
+                debugger
+                $(event.currentTarget.parentElement).hide();
+            });
+            $(".search-icon").click(event => {
+                $(".search-screen").show();
+            });
+            $(".menu-icon-hidden").click(function () {
+                $(".side-menubar").show();
+            });
+        });
+
+
+        var createNavbar = (data) => {
+            debugger
+            $('.headList').empty();
+            var listHtml = ` 
+                    <li>
+                        @*@Html.ActionLink("EVERYDAY POWER", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                        <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">EVERYDAY POWER</a>
+                    </li>`;
+            var subhtml = "";
+            $.each(data.list, function (index, element) {
+                subhtml = subhtml + `<li>
+                        <a href="@Url.Action("Index" ,"Home")" class="dropdown-heading" value="`+ element.categoryId + `" id = "dropdown-heading_` + element.categoryName.replace(' ', '-') + `">` + element.categoryName.toUpperCase() +`</a>
+                        <div class="dropdown-body">
+                        </div>
+                    </li>`;
+            });
+
+            listHtml = listHtml +
+                subhtml + `
+<li>
+                        @*@Html.ActionLink("+ Create Post", "NewPost", "Custom_Post", new { @id = "dropdown-heading_Post", @class = "dropdown-heading"  })*@
+                        <a id="dropdown-heading_Post" class="" href="@Url.Action("NewPost" ,"Custom_Post")">+ Create Post</a> 
+                    </li>
+`;
+            $('.headList').append(listHtml);
+            $(".dropdown-body").hide();
+            console.log(listHtml);
+        }
+
+        var createListItems = (selector) => {
+
+            var categoryId = $(selector).attr('value');
+            if (categoryId != undefined || categoryId != '') {
+                $.ajax({
+                    url: '/GetByCategoryId/' + categoryId,
+                method: 'get',
+                contentType: "application/json",
+                dataType:"json",
+                processData: false,
+                async:false,
+                    success: function (data) {
+                        var listItem = '';
+                        $.each(data.list, function (index, element) {
+                            listItem = listItem+ `<div style="min-height:2em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
+                                            `+ element.shortName + `
+                                    </div>`;
+                        });
+                        debugger
+                       var x = `<div style="min-height:3em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; "></div>`;
+                        $(selector).next().append(listItem);
+                },
+                error: function () {
+                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                }
+            });
+            }
+        }
+    </script>
+</body>
+</html>

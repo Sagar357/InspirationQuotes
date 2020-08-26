@@ -1,0 +1,62 @@
+﻿@model EverydayPower.Models.Get_Post_List
+@{
+    ViewBag.Title = "Show_Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                @foreach (var m in Model.list)
+                {
+                    @(new HtmlString(m.postContent))
+                }
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-3 line"></div>
+                        <div class="col-md-5 box text-center">
+                            <span>
+                                Latest Articles
+                            </span>
+                        </div>
+                        <div class="col-md-3 line"></div>
+                    </div>
+                    <ul class="side-link">
+                    </ul>
+                </div>
+          
+
+        </div>
+        </div>
+
+<script>
+    $(document).ready(function () {
+                $.ajax({
+                url: '/side-links/0/10',
+                method: 'get',
+                contentType: "application/json",
+                dataType:"json",
+                processData: false,
+                async:false,
+                success: function (data) {
+                    console.log(data);
+                    $('.side-link').empty();
+                    var listHtml = '';
+                    $.each(data.list, (index, element) => {
+                         debugger
+                        listHtml = listHtml + ` <li>
+                            <a href="\\Quotes\\`+element.seoUrl+`">`+element.postUrl+`</a>
+                        </li>`;
+                    });
+
+                    $('.side-link').append(listHtml);
+                },
+                error: function () {
+                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                }
+            });
+    });
+</script>
+

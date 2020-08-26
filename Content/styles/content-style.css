@@ -1,0 +1,57 @@
+﻿.avatar {
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+   
+}
+.container>h1 {
+    font-family: 'Dancing Script', cursive;
+}
+
+.card-body>h5{
+    margin-top:15px;
+    margin-bottom:0px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-family: 'Dancing Script', cursive;
+}
+.card-body{
+    border : 1px solid lightgrey;
+}
+.container{
+    margin-bottom:20px;
+}
+.writing-area {
+    display: inline-block;
+    padding-left: 15px;
+    
+}
+.indent {
+    position: absolute;
+    width: 55%;
+}
+.no-indent{
+    width:63em;
+}
+    .writing-area > p {
+        font-size: 30px;
+        font-family: 'Open Sans Condensed', sans-serif;
+    }
+    .card {
+        display: inline-block;
+    }
+.content-container{
+    width:70%;
+}
+
+.emphasis{
+    display:block;
+    text-indent:0px;
+    padding:5px 0px 5px 0px;
+    font-size:23px;
+    font-weight:800;
+
+}

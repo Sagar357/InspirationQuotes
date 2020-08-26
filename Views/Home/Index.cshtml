@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+    <div class="row container-top text-center" onclick="handleClick()">
+    </div>
+
+
+    <div class="container"></div>
+
+        <script>
+    $(document).ready(function () {
+
+        $.ajax({
+                url: '/Custom_Post/GetAll',
+                method: 'get',
+                contentType: "application/json",
+                dataType:"json",
+                processData: false,
+                async:false,
+                success: function (data) {
+                    debugger
+
+                    createHtmlLatestItem(data.list);
+                },
+                error: function () {
+                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                }
+            });
+
+        $('.carousel').carousel();
+      
+         $('#175Beauty').click(function () {
+
+            var link = '@Url.Action("Index", "Custom_Post")';
+            window.location.assign(link);
+            });
+    });
+
+            var handleClick = () => {
+
+            }
+
+            var createHtmlLatestItem = (data) => {
+                debugger
+        var id = data[0].seoUrl;
+
+        var html = `
+        <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/`+id+`';"  >
+            <img src='' class="main-image" style=" width: 1500px; height: 400px;" />
+        </div>
+        <div class=" col-md-12 main-text " style="  float:left;  position:absolute;top:8em;">
+            `+data[0].postUrl+`
+            <p>
+                Life can feel impossible sometimes. Discover what to do when you feel like giving up. While giving up seems to...
+            </p>
+        </div>
+
+
+`;
+        $('.container-top').append(html);
+        $('.container-top img').attr('src', '../../UploadImage/' + data[0].postIconImage +  '');
+        var frameHtml = '<div class="row">';
+        var count = 0;
+        $('.container').empty();
+
+        var category = [];
+        for (var i = 0; i < data.length; i++) {
+            category[i] = data[i].category;
+        }
+        $.unique(category);
+
+       
+                    var latestcategory = category[0]
+            $.each(data, function (index, value) {
+            if (value.category === latestcategory && count < 4) {
+                frameHtml = frameHtml + createSubContent(value)
+                count++;
+                }
+
+        });
+
+        frameHtml = frameHtml + '</div>'
+
+        for (var i = 1; i < category.length; i++) {
+            frameHtml = frameHtml + `<div class="row">
+            <div class="col-md-4 line"></div>
+            <div class="col-md-3 box text-center">
+                <span>
+                    `+ category[i] +`
+                </span>
+            </div>
+            <div class="col-md-5 line"></div>
+        </div>`;
+            count = 0;
+            var subhtml = '<div class="row">';
+            for (var j = 0; j < data.length; j++) {
+                if (data[j].category === category[i]) {
+
+                    if (count<2)
+                        subhtml = subhtml + createMainSubContent(category[i], data[j]) + `</div>`;
+                    else
+                        subhtml = subhtml + createSubContent(data[j]) ;
+                        count++;
+
+                }
+                if (count == 2) {
+                    subhtml = subhtml+ '<div class="row">';
+                }
+
+            }
+            subhtml = subhtml + '</div>';
+              debugger
+            frameHtml = frameHtml + subhtml;
+        }
+
+        console.log(subhtml);
+        $('.container').append(frameHtml);
+
+    }
+
+    var createMainSubContent = (cat ,data ,count) => {
+        debugger
+        var id = data.seoUrl;
+        return `<div class="col-md-6 sub-container"  onclick="location.href='/Quotes/`+id+`';">
+                <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
+                <div class="bottom-left">
+                    <p>
+                       `+ cat +`
+                    </p>
+                    <span>
+                        `+ data.postUrl +`
+                    </span>
+                </div>`;
+    }
+             var createSubContent = (value) => {
+
+                 var id = value.seoUrl;
+
+        return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+id+`';">
+                <img width="300" height="200" src="../../UploadImage/` + value.postIconImage + `" />
+                <div class="info">
+                    <p>
+                        `+ value.category +`
+                    </p>
+                    <span>
+                        `+ value.postUrl +`
+                    </span>
+                </div>
+            </div>
+
+           `;
+    }
+        </script>

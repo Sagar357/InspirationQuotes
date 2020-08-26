@@ -1,0 +1,125 @@
+﻿
+*{
+    padding:0px;
+}
+
+.container-fluid{
+    padding:0px;
+}
+.container-top {
+    opacity: 0.9;
+    height: auto;
+    width: 100%;
+    color: white;
+    font-size: 40px;
+}
+
+    .main-image {
+        width: 1500px;
+        height: 400px;
+    }
+    .container-top > .row {
+        padding: 0px;
+        margin: 0;
+    }
+
+.container-top>.col-md-12{
+    padding:0px;
+}
+
+p{
+    font-size:16px;
+    padding-bottom:15px;
+}
+
+
+/* Bottom left text */
+.bottom-left {
+    position: absolute;
+    bottom: 4em;
+    left: 16px;
+}
+
+.sub-container {
+    height: 300px;
+    padding: 0px;
+    border: 1px solid white;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+.sub-container>img{
+    height:250px;
+    width:100%;
+    vertical-align:auto;
+}
+.info > p {
+    font-size: 14px;
+    color: lightgrey;
+    margin-top: 0.5em;
+    padding-bottom: 0.2em;
+}
+.info>span{
+    font-size:20px;
+    color:black;
+}
+
+.container{
+    margin-top:0.5em;
+    margin-right:1em;
+}
+
+.line{
+    border-top:1px solid black;
+    height:1px;
+    width:40%;
+    margin-top:10em;
+    margin-bottom:15px;
+    display:inline-block
+}
+.box {
+    background-color: #00e673;
+    padding-top: 4px;
+    height: 2em;
+    width: auto;
+    margin-top: 9em;
+    margin-bottom: 15px;
+    transform: skewX(-15deg);
+    color: white;
+    display: inline-block;
+    font-weight: 900;
+}
+
+.bottom-left p {
+    font-size: 10px;
+    color: #00ffcc;
+    text-align:left;
+    padding:0px 0px 0px 10px;
+}
+
+.bottom-left>span {
+    font-size: 25px;
+    text-align: left;
+    padding: 0px 0px 0px 10px;
+    display:block;
+}
+
+.main-text {
+    float: left;
+    position: absolute;
+    top: 8em;
+}
+.side-link {
+    font-size: 17px;
+    
+}
+
+    .side-link > li {
+        border-bottom: 1px solid #e6e6ff;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+        .side-link > li > a:hover {
+            text-decoration: none;
+            color: #00e673;
+        }

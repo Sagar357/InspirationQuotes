@@ -1,0 +1,158 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-size:16px;
+}
+
+a{
+    text-decoration:none;
+    color:black;
+}
+ul{
+    list-style:none;
+}
+ul>li{
+    padding-left:0.5em;
+}
+
+
+
+body, html {
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.company-div{
+    background-color:white;
+    padding:0 0 0 5em;
+}
+
+.menu-icon-hidden{
+    display:inline-block;
+    width:2em;
+    height:2em;
+    font-size:28px;
+    padding-top:0.2em;
+}
+
+.menu-icon-hidden:hover {
+    color: #80ffe5;
+}
+
+.dropdown-body>div {
+    min-height: 2em;
+    position: absolute;
+    border-color: #bfbaba;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    width: 12em;
+    padding: 0.6em;
+}
+
+.search-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    padding-top: .8em;
+    cursor:pointer;
+}
+
+.hidden-ele {
+    position: absolute;
+    z-index: 1031;
+    overflow: hidden;
+    display: none;
+    font-size: 30px;
+}
+
+.search-screen {
+    opacity: 0.9;
+    background-color: black;
+    height: 100%;
+    color: white;
+    width: 45em;
+}
+.search-box {
+    margin-top: 10em;
+    margin-left: 15em;
+    display: inline-block;
+    height: 2em;
+    border-bottom: 1px solid red;
+    min-width: 20em;
+    padding-left:0.5em;
+}
+
+#txtSearchBox {
+    outline:none;
+    border:1px solid black;
+    color:darkgray;
+    background: inherit;
+    width: 100%;
+}
+.custom_close {
+    height: 40px;
+    width: 40px;
+    float: right;
+    margin-top: .5em;
+    margin-right: .5em;
+    font-size: 40px;
+    cursor:pointer;
+}
+
+.side-menubar {
+    background-color: white;
+    height: 100%;
+    color: darkgray;
+    width: 12em;
+    border-top: 1px solid lightgrey;
+    
+}
+
+.social-media>span>a{
+    height:20px;
+    width:20px;
+    color:white;
+    font-size:20px;
+    display:inline-block;
+    margin-top:0.5em;
+}
+
+.social-media > span {
+    height: 2.5em;
+    width: 2.5em;
+    display: inline-block;
+    background-color: #484848;
+    border-radius: 2.5em;
+    margin-bottom: 1em;
+}
+
+.footer-links>li>a:hover{
+    text-decoration:none;
+    color:white;
+}
+
+.footer-links > li > a{
+    color:inherit;
+}

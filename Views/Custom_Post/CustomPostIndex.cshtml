@@ -1,0 +1,176 @@
+﻿@model EverydayPower.Models.FileSave_Model
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container-fluid custom_post_main_div" style="padding-top:30px;">
+        <div class="form-group col-md-3">
+            <label>Post Title</label>
+            <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" />
+
+            <label>Post Category</label>
+            <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
+
+            <label>Category Caption</label>
+            <input type="text" id="txtcategoryname" name="category" placeholder="Enter Category Text to be displayed in capton" class="form-control" />
+
+            <label>Post Short Name</label>
+            <input type="text" id="txtshortname" name="category" placeholder="Enter Short Name to be displayed in drop down" class="form-control" />
+        </div>
+            @using (Html.BeginForm("FileUpload", "Custom_Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div class="form-group col-md-6">
+                    <label>Icon Image</label>
+                    <div id="upldImagePreview"><img src="~/UploadImage/no-image.jpg" style="height:150px; width:250px;"  /></div>
+                    <div>
+                        @Html.TextBox("file", "", new { @type = "file", @class = "form-control", @id = "uploadfile" })
+                    </div>
+                    @*<input type="file" id="imgfile" name="image" placeholder="Upload an Image" class="form-control" />*@
+                    <input type="button" id="btnupload" name="upload" value="Upload" class="form-control btn btn-primary" />
+
+                </div>
+
+            }
+        </div>
+
+<textarea class="editor"></textarea>
+
+<input type="button" id="btnCreatePost" class="btn btn-success" value="Create Post" style="margin-top:20px;height:40px; width:200px;"  />
+
+<p class="preview-head">
+    <span>
+        Preview
+    </span>
+</p>
+
+<div class="container container-content">
+
+</div>
+
+<div class="container container-save text-center">
+    <input type="button" id="btnSave" class="btn btn-success" value="Save Post" disabled="disabled"/>
+</div>
+
+<script>
+    $('textarea.editor').ckeditor();
+    $(document).ready(function () {
+        $('#btnCreatePost').click(function () {
+            var content = CKEDITOR.instances["editor1"].getData();
+            $('.container-content').empty();
+            if (content != "") {
+               
+                $('.container-content').css('color', 'black');
+                $('.container-content').html(content);
+            }
+            else {
+                $('.container-content').css('color', 'red');
+                $('.container-content').html("<h1>No Content to display!! Use Editor to Create Post...</h1>");
+            }
+        });
+
+        $("#btnSave").click(event => {
+            event.preventDefault();
+            savePost();
+        });
+
+        $("#imgfile").change(function (event) {
+            debugger
+            alert("A file has been selected.");
+            $("#upldImage").css('background' ,'url()')
+        });
+
+        $("#btnupload").click(event => {
+            event.preventDefault();
+            if ($('#uploadfile').val() == '') {
+                alert('Please select Profile Image');
+                return;
+            }
+            var arrayValue = [];
+            var objects = {};
+            var formData = new FormData();
+
+            //$('[type="text"').each(function () {
+            //    //objects[$(this).attr("name")] = $(this).val
+
+            //    formData.append($(this).attr("name"), $(this).val());
+
+            //});
+            debugger
+            let file = $('#uploadfile')[0];
+            formData.append("ProfileImage", file.files[0]);
+            var data = JSON.stringify(objects);
+
+            $.ajax({
+                url: '@Url.Action("FileUpload" ,"Custom_Post")',
+                method: 'post',
+                contentType: false,
+                processData: false,
+                data: formData,
+                async:false,
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    $("#upldImagePreview>img").attr("src", "../../UploadImage/" + data.imageName + "");
+                    $("#upldImagePreview>img").attr("height", "200");
+                    $("#upldImagePreview>img").attr("width", "250");
+                    
+                    $("#upldImagePreview").css("margin-bottom", "20px");
+                    $("#upldImagePreview").attr('value', JSON.stringify( data ));
+                },
+                error: function () {
+                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                }
+            });
+        });
+    });
+
+    var savePost = () => {
+        var content = CKEDITOR.instances["editor1"].getData();
+        var imageJSON = JSON.parse($("#upldImagePreview").attr('value'));
+        var title = $("#txturl").val();
+        var category = $("#txtcategory").val();
+        var categoryName = $("#txtcategoryname").val();
+        var shortName = $("#txtshortname").val();
+
+        var postobj =
+        {
+            postUrl: title,
+            postContent: content,
+            fileAttachmentCode: imageJSON.fileAttachmentCode,
+            category: category,
+            categoryName: categoryName,
+            shortName: shortName
+        }
+        var data = JSON.stringify(postobj);
+
+            $.ajax({
+                url: '/Custom_Post/Post',
+                method: 'post',
+                contentType: "application/json",
+                dataType:"json",
+                processData: false,
+                data: data,
+                async:false,
+                cache: false,
+                success: function (data) {
+                    debugger
+                    console.log(data);
+                    CKEDITOR.instances.editor1.setData("");
+                    $("#upldImagePreview").attr('value', '');
+                    $("#upldImagePreview>img").attr("src", "none");
+                    $("#upldImagePreview>img").css("height", "0");
+                    $("#upldImagePreview>img").css("width", "0");
+                    $('.container-content').html('');
+                    $('#uploadfile').val('');
+                    $("#txturl").val('');
+                    $("#txtcategory").val('');
+                },
+                error: function () {
+                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                }
+            });
+        console.log();
+    }
+</script>
