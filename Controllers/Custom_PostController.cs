@@ -77,7 +77,9 @@ namespace EverydayPower.Controllers
         public ActionResult Show_Post(string id)
         {
             Services.Post_Service services = new Services.Post_Service();
-            return View("Show_Post" ,services.PostGetContent(id));
+            Get_Post_List list = services.PostGetContent(id);
+            //ViewBag.Title = list.list[0].seoTitle;
+            return View("Show_Post" ,list);
         }
 
         [Route("side-links/{start}/{pageIndex}")]

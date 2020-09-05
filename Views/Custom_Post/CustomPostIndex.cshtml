@@ -13,10 +13,17 @@
             <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
 
             <label>Category Caption</label>
-            <input type="text" id="txtcategoryname" name="category" placeholder="Enter Category Text to be displayed in capton" class="form-control" />
+            <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" />
 
             <label>Post Short Name</label>
-            <input type="text" id="txtshortname" name="category" placeholder="Enter Short Name to be displayed in drop down" class="form-control" />
+            <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" class="form-control" />
+
+            <label>SEO Title</label>
+            <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" />
+
+            <label>SEO Description</label>
+            <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" />
+
         </div>
             @using (Html.BeginForm("FileUpload", "Custom_Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
@@ -63,6 +70,7 @@
                
                 $('.container-content').css('color', 'black');
                 $('.container-content').html(content);
+                $('#btnSave').removeAttr('disabled');
             }
             else {
                 $('.container-content').css('color', 'red');
@@ -133,6 +141,8 @@
         var category = $("#txtcategory").val();
         var categoryName = $("#txtcategoryname").val();
         var shortName = $("#txtshortname").val();
+        var seoTitle = $('#txtseotitle').val();
+        var seoDescription = $('#txtseodesc').val();
 
         var postobj =
         {
@@ -141,7 +151,9 @@
             fileAttachmentCode: imageJSON.fileAttachmentCode,
             category: category,
             categoryName: categoryName,
-            shortName: shortName
+            shortName: shortName,
+            seoTitle: seoTitle,
+            seoDescription:seoDescription
         }
         var data = JSON.stringify(postobj);
 

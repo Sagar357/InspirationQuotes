@@ -17,6 +17,8 @@ namespace EverydayPower.Models
         public string seoUrl { get; set; }
         public string categoryName { get; set; }
         public string shortName { get; set; }
+        public string seoTitle { get; set; }
+        public string seoDescription { get; set; }
 
     }
 

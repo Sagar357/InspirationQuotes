@@ -31,6 +31,8 @@ namespace EverydayPower.Services
                     cmd.Parameters.AddWithValue("@post_category", model.category);
                     cmd.Parameters.AddWithValue("@post_category_desc", model.categoryName);
                     cmd.Parameters.AddWithValue("@shortname", model.shortName);
+                    cmd.Parameters.AddWithValue("@seotitle", model.seoTitle);
+                    cmd.Parameters.AddWithValue("@seodesc", model.seoDescription);
                     cmd.Parameters.AddWithValue("@seo_url", model.postUrl.Replace(" ","-"));
 
                     cmd.ExecuteNonQuery();
@@ -318,6 +320,22 @@ namespace EverydayPower.Services
                             else
                             {
                                 obj.seoUrl = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["seo_title"].ToString()))
+                            {
+                                obj.seoTitle = dr["seo_title"].ToString();
+                            }
+                            else
+                            {
+                                obj.seoTitle = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["seo_description"].ToString()))
+                            {
+                                obj.seoDescription = dr["seo_description"].ToString();
+                            }
+                            else
+                            {
+                                obj.seoDescription = "";
                             }
                             list.list.Add(obj);
                         }
