@@ -149,11 +149,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Custom_PostController.cs" />
+    <Compile Include="Controllers\FAQController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\whenyoufeellikegivingupController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Faq_model.cs" />
     <Compile Include="Models\FileSave_Model.cs" />
     <Compile Include="Models\Post_Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -630,6 +632,7 @@
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="UploadImage\imagePost.jpg" />
     <Content Include="UploadImage\no-image.jpg" />
+    <Content Include="Views\FAQ\FAQ.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -652,6 +655,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="SqlServerTypes\x64\" />
     <Folder Include="SqlServerTypes\x86\" />
+    <Folder Include="Views\Faq_model\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

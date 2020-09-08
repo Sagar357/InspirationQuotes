@@ -46,6 +46,32 @@ namespace EverydayPower.Services
             return status;
         }
 
+        public string FaqSave(string faq)
+        {
+            string status = "failed";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "tmpprcpostfaq";
+                    cmd.Parameters.AddWithValue("@question", faq);
+
+                    cmd.ExecuteNonQuery();
+                }
+                status = "saved";
+            }
+            catch (Exception ex)
+            {
+                status = ex.Message;
+            }
+            return status;
+        }
+
+
         public string Update(PostEdit model)
         {
             string status = "failed";
@@ -70,6 +96,53 @@ namespace EverydayPower.Services
                 status = ex.Message;
             }
             return status;
+        }
+
+
+        public Faq_model_list FaqGetAll()
+        {
+            string status = "failed";
+            Faq_model_list list = new Faq_model_list();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
+                {
+                    DataSet ds = new DataSet();
+                    con.Open();
+                    ds = SqlHelper.ExecuteDataset(con, CommandType.StoredProcedure, "tmpprcgetfaq");
+                    foreach (DataTable dt in ds.Tables)
+                    {
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            Faq_model obj = new Faq_model();
+                            if (!string.IsNullOrEmpty(dr["question"].ToString()))
+                            {
+                                obj.questions = dr["question"].ToString();
+                            }
+                            else
+                            {
+                                obj.questions = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["answer"].ToString()))
+                            {
+                                obj.answer = dr["answer"].ToString();
+                            }
+                            else
+                            {
+                                obj.answer = "";
+                            }
+
+                            list.list.Add(obj);
+                        }
+                    }
+                }
+                list.message = "fetched";
+            }
+            catch (Exception ex)
+            {
+                list.message = ex.Message;
+            }
+            return list;
         }
 
 

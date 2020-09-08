@@ -45,6 +45,7 @@ namespace EverydayPower.Models
         public List<Post_Model> list { get; set; }
         public string message { get; set; }
         public Login_model UserDetails { get; set; }
+        public Faq_model_list FaqList { get; set; }
     }
 
     public class Category_Model
