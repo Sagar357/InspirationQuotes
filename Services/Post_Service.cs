@@ -46,7 +46,7 @@ namespace EverydayPower.Services
             return status;
         }
 
-        public string FaqSave(string faq)
+        public string FaqSave(Faq_model faq)
         {
             string status = "failed";
             try
@@ -58,7 +58,8 @@ namespace EverydayPower.Services
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "tmpprcpostfaq";
-                    cmd.Parameters.AddWithValue("@question", faq);
+                    cmd.Parameters.AddWithValue("@question", faq.questions);
+                    cmd.Parameters.AddWithValue("@answer", faq.answer);
 
                     cmd.ExecuteNonQuery();
                 }

@@ -8,17 +8,26 @@
         <br />
         <br />
         <br />
-        <form method="post" action="@Url.Action("Create" ,"FAQ")" id="form-login" >
-            <div class="form-group">
-                <label for="txtarea-NewQuestions"></label>
-                @*<input type="text" class="form-control text-wrap" id="txtarea-NewQuestions" placeholder="Enter your query....." style="height:200px; " />*@
-                <textarea name="query" rows="7" class="form-control text-wrap" id="txtarea-NewQuestions" placeholder="Enter your query....." style="font-size:25px;"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="txtarea-NewQuestions"></label>
-                <input type="submit" id="btnsubmitquestion" class="form-control btn btn-warning" value="Submit Questions" />
-            </div>
-        </form>
+        @if (ViewBag.Login == "valid")
+        {
+            <form method="post" action="@Url.Action("Create" ,"FAQ")" id="form-login">
+                <div class="form-group">
+                    <label for="txtarea-NewQuestions"></label>
+                    @*<input type="text" class="form-control text-wrap" id="txtarea-NewQuestions" placeholder="Enter your query....." style="height:200px; " />*@
+                    <textarea name="query" rows="3" class="form-control text-wrap" id="txtarea-NewQuestions" placeholder="Enter your question....." style="font-size:25px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="txtarea-NewQuestions"></label>
+                    @*<input type="text" class="form-control text-wrap" id="txtarea-NewQuestions" placeholder="Enter your query....." style="height:200px; " />*@
+                    <textarea name="answer" rows="7" class="form-control text-wrap" id="txtarea-NewAnswer" placeholder="Enter your answer....." style="font-size:25px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="txtarea-NewQuestions"></label>
+                    <input type="submit" id="btnsubmitquestion" class="form-control btn btn-warning" value="Submit Questions" />
+                </div>
+            </form>
+
+        }
         <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             This section contains a wealth of information, related to <strong>PrepBootstrap</strong> and its store. If you cannot find an answer to your question,
@@ -29,7 +38,7 @@
 
         <div class="panel-group" id="accordion">
             <div class="faqHeader">General questions</div>
-            <div class="panel panel-default">
+            @*<div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Is account registration required?</a>
@@ -41,19 +50,18 @@
                         This ensures a valid communication channel for all parties involved in any transactions.
                     </div>
                 </div>
-            </div>
-            @foreach (var m in Mod)
+            </div>*@
+            @foreach (var ele in Model.FaqList.list)
             {
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">@model.</a>
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">@ele.questions</a>
                         </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            Account registration at <strong>PrepBootstrap</strong> is only required if you will be selling or buying themes.
-                            This ensures a valid communication channel for all parties involved in any transactions.
+                            @ele.answer
                         </div>
                     </div>
                 </div>

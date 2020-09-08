@@ -33,7 +33,6 @@ namespace EverydayPower.Models
     {
         public string username { get; set; }
         public string password { get; set; }
-
     }
 
     public class Get_Post_List

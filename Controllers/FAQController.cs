@@ -22,6 +22,7 @@ namespace EverydayPower.Controllers
         [Route("FAQ")]
         public ActionResult FAQ()
         {
+            validate();
             Get_Post_List list = null;
             Services.Post_Service postService = new Services.Post_Service();
             if (ModelState.IsValid)
@@ -43,6 +44,19 @@ namespace EverydayPower.Controllers
             return View();
         }
 
+        private void validate()
+        {
+            var session = Session["username"];
+            if (session != null)
+            {
+                ViewBag.Login = "valid";
+            }
+            else
+            {
+                ViewBag.Login = "invalid";
+            }
+        }
+
         // POST: FAQ/Create
         [Route("Create")]
         [HttpPost]
@@ -55,7 +69,10 @@ namespace EverydayPower.Controllers
                 Services.Post_Service postService = new Services.Post_Service();
                 if (ModelState.IsValid)
                 {
-                    status = postService.FaqSave(Request.Form["query"].ToString());
+                    Faq_model model = new Faq_model();
+                    model.answer = Request.Form["answer"].ToString();
+                    model.questions = Request.Form["query"].ToString();
+                    status = postService.FaqSave(model);
                 }
                 else
                 {
