@@ -316,6 +316,12 @@
                         <a id="dropdown-heading_Post" class="" href="@Url.Action("NewPost" ,"Custom_Post")" >+ Create Post</a>
                         }
                     </li>
+<li>
+                        @*@Html.ActionLink("+ Create Post", "NewPost", "Custom_Post", new { @id = "dropdown-heading_Post", @class = "dropdown-heading"  })*@
+                      
+                        <a id="dropdown-heading_Faq" class="" href="@Url.Action("FAQ" ,"FAQ")" >FAQ</a>
+                        
+                    </li>
 
 `;
             $('.headList').append(listHtml);
