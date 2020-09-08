@@ -62,13 +62,13 @@ namespace EverydayPower.Controllers
         // GET: Custom_Post
         public ActionResult Index()
         {
-            return View("CustomPostIndex" , new FileSave_Model());
+            return View("CustomPostIndex" , new Get_Post_List());
         }
 
         [Route("Create-Post")]
         public ActionResult NewPost()
         {
-            return View("CustomPostIndex", new FileSave_Model());
+            return View("CustomPostIndex", new Get_Post_List());
         }
        
 
@@ -78,8 +78,29 @@ namespace EverydayPower.Controllers
         {
             Services.Post_Service services = new Services.Post_Service();
             Get_Post_List list = services.PostGetContent(id);
-            //ViewBag.Title = list.list[0].seoTitle;
-            return View("Show_Post" ,list);
+            var session = Session["username"];
+            if (session != null)
+            {
+                ViewBag.User = session.ToString();
+            }
+                //ViewBag.Title = list.list[0].seoTitle;
+                return View("Show_Post" ,list);
+        }
+
+        [HttpPost]
+        public JsonResult Update(PostEdit postobj)
+        {
+            string status = "";
+            Services.Post_Service postService = new Services.Post_Service();
+            if (ModelState.IsValid)
+            {
+                status = postService.Update(postobj);
+            }
+            else
+            {
+                status = "PostDataError";
+            }
+            return (Json(status, JsonRequestBehavior.AllowGet));
         }
 
         [Route("side-links/{start}/{pageIndex}")]
@@ -130,21 +151,27 @@ namespace EverydayPower.Controllers
             return (Json(services.GetCategoryList(), JsonRequestBehavior.AllowGet));
         }
 
+
         // GET: Custom_Post/Edit/5
-        public ActionResult Edit(int id)
+        [Route("Quotes/Delete/{id}")]
+        public ActionResult Delete(string id)
         {
-            return View();
+            Services.Post_Service services = new Services.Post_Service();
+            Get_Post_List list = services.PostDeleteContent(id);
+            //ViewBag.Title = list.list[0].seoTitle;
+            return RedirectToAction("Index", "Home" );
         }
 
-        // POST: Custom_Post/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [Route("Quotes/Edit/{id}")]
+        public ActionResult Edit(string id) 
         {
             try
             {
+                Services.Post_Service services = new Services.Post_Service();
+                Get_Post_List list = services.PostGetContent(id);
                 // TODO: Add update logic here
+                return View("CustomPostIndex", list);
 
-                return RedirectToAction("Index");
             }
             catch
             {

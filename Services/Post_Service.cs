@@ -33,7 +33,7 @@ namespace EverydayPower.Services
                     cmd.Parameters.AddWithValue("@shortname", model.shortName);
                     cmd.Parameters.AddWithValue("@seotitle", model.seoTitle);
                     cmd.Parameters.AddWithValue("@seodesc", model.seoDescription);
-                    cmd.Parameters.AddWithValue("@seo_url", model.postUrl.Replace(" ","-"));
+                    cmd.Parameters.AddWithValue("@seo_url", model.seoUrl.Replace(" ","-"));
 
                     cmd.ExecuteNonQuery();
                 }
@@ -45,6 +45,33 @@ namespace EverydayPower.Services
             }
             return status;
         }
+
+        public string Update(PostEdit model)
+        {
+            string status = "failed";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "tmp_prc_UpdatePostData";
+                    cmd.Parameters.AddWithValue("@post_content", model.postContent);
+                    cmd.Parameters.AddWithValue("@seo_url", model.seoUrl.Replace(" ", "-"));
+
+                    cmd.ExecuteNonQuery();
+                }
+                status = "Updated";
+            }
+            catch (Exception ex)
+            {
+                status = ex.Message;
+            }
+            return status;
+        }
+
 
         public Get_Post_List PostGetAll()
         {
@@ -247,6 +274,34 @@ namespace EverydayPower.Services
         }
 
 
+        public Get_Post_List LoginService(Login_model user)
+        {
+            string status = "failed";
+            Get_Post_List list = new Get_Post_List();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
+                {
+                    DataSet ds = new DataSet();
+                    con.Open();
+                    SqlParameter[] param = new SqlParameter[2];
+                    param[0] = new SqlParameter("@username", user.username);
+                    param[1] = new SqlParameter("@password", user.password);
+                    ds = SqlHelper.ExecuteDataset(con, CommandType.StoredProcedure, "tmpprclogin", param);
+                    if (ds.Tables.Count > 0 )
+                    {
+                        list.message = "valid";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                list.message = ex.Message;
+            }
+            return list;
+        }
+
+
         public Get_Post_List PostGetContent(string id)
         {
             string status = "failed";
@@ -349,6 +404,110 @@ namespace EverydayPower.Services
             }
             return list;
         }
+
+        public Get_Post_List PostDeleteContent(string id)
+        {
+            string status = "failed";
+            Get_Post_List list = new Get_Post_List();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
+                {
+                    DataSet ds = new DataSet();
+                    con.Open();
+                    SqlParameter[] param = new SqlParameter[2];
+                    param[0] = new SqlParameter("@seo_url", id);
+                    ds = SqlHelper.ExecuteDataset(con, CommandType.StoredProcedure, "tmp_prc_deletePostData", param);
+                    //foreach (DataTable dt in ds.Tables)
+                    //{
+                    //    foreach (DataRow dr in dt.Rows)
+                    //    {
+                    //        Post_Model obj = new Post_Model();
+                    //        if (!string.IsNullOrEmpty(dr["post_id"].ToString()))
+                    //        {
+                    //            obj.postId = Convert.ToInt32(dr["post_id"].ToString());
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.postId = 0;
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["post_url"].ToString()))
+                    //        {
+                    //            obj.postUrl = dr["post_url"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.postUrl = "";
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["file_name"].ToString()))
+                    //        {
+                    //            obj.postIconImage = dr["file_name"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.postIconImage = "";
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["file_path"].ToString()))
+                    //        {
+                    //            obj.postIconImagePath = dr["file_path"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.postIconImagePath = "";
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["post_category"].ToString()))
+                    //        {
+                    //            obj.category = dr["post_category"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.category = "";
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["post_content"].ToString()))
+                    //        {
+                    //            obj.postContent = dr["post_content"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.postContent = "";
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["seo_url"].ToString()))
+                    //        {
+                    //            obj.seoUrl = dr["seo_url"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.seoUrl = "";
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["seo_title"].ToString()))
+                    //        {
+                    //            obj.seoTitle = dr["seo_title"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.seoTitle = "";
+                    //        }
+                    //        if (!string.IsNullOrEmpty(dr["seo_description"].ToString()))
+                    //        {
+                    //            obj.seoDescription = dr["seo_description"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            obj.seoDescription = "";
+                    //        }
+                    //        list.list.Add(obj);
+                    //    }
+                    //}
+                }
+                list.message = "Deleted";
+            }
+            catch (Exception ex)
+            {
+                list.message = ex.Message;
+            }
+            return list;
+        }
+
 
         public Get_Post_List PostGetLatestPosts(int start ,int pageIndex)
         {

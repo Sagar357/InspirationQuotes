@@ -32,3 +32,16 @@
 .custom_post_main_div label{
     margin-top:2em;
 }
+
+.custom_btns {
+    height: 50px;
+    width: 130px;
+    font-weight: 900;
+    background-color: forestgreen;
+    color: white;
+    border: none;
+    float: right;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    cursor:pointer;
+}

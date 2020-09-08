@@ -1,5 +1,6 @@
 ﻿@model EverydayPower.Models.Get_Post_List
 @{
+    ViewBag.SeoDesc=Model.list[0].seoDescription;
     ViewBag.Title=Model.list[0].seoTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,11 +9,21 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-8">
+
+
                 @foreach (var m in Model.list)
                 {
+                    if (!string.IsNullOrEmpty(ViewBag.User))
+                    {
+                        <input type="button" id="btnDelete" name="DeletePost" value="Delete" class="custom_btns" style="height:50px; width:130px; font-weight:900; background-color:forestgreen; color:white; border:none;float:right; margin-left:10px; margin-bottom:20px;" onclick="location.href='Delete/@m.seoUrl'" />
+                        <input type="button" id="btnEdit" name="EditPost" value="Edit" class="custom_btns" style="height:50px; width:130px; font-weight:900; background-color:forestgreen; color:white; border:none; float:right; margin-left:10px; margin-bottom:20px;" onclick="location.href='Edit/@m.seoUrl'" />
+                        <div class="clearfix"></div>
+
+                    }
                     @(new HtmlString(m.postContent))
                 }
-                </div>
+
+            </div>
                 <div class="col-md-3">
                     <div class="row">
                         <div class="col-md-3 line"></div>

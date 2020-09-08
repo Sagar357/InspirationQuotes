@@ -22,6 +22,20 @@ namespace EverydayPower.Models
 
     }
 
+    public class PostEdit
+    {
+        public string seoUrl { get; set; }
+        public string postContent { get; set; }
+
+    }
+
+    public class Login_model
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+
+    }
+
     public class Get_Post_List
     {
         public Get_Post_List()
@@ -30,6 +44,7 @@ namespace EverydayPower.Models
         }
         public List<Post_Model> list { get; set; }
         public string message { get; set; }
+        public Login_model UserDetails { get; set; }
     }
 
     public class Category_Model

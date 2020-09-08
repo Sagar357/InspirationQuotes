@@ -1,28 +1,115 @@
-﻿@model EverydayPower.Models.FileSave_Model
+﻿@model EverydayPower.Models.Get_Post_List
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string Content = "";
+    string postTitle = "";
+    string seoTitle = "";
+    string category = "";
+    string seoDesc = "";
+    string shortName = "";
+    string image = "no-image.jpg";
+    string seoUrl = "";
+    if (Model.list.Count>0)
+    {
+        ViewBag.Title = "Edit Post";
+        foreach(var model in Model.list)
+        {
+            Content = model.postContent;
+            postTitle = model.postUrl;
+            seoTitle = model.seoTitle;
+            category = model.category;
+            seoDesc = model.seoDescription;
+            shortName = model.shortName;
+            image = model.postIconImage;
+            seoUrl = model.seoUrl;
+        }
+    }
+    else
+    {
+        ViewBag.Title = "Create New Post";
+    }
 }
 
+<input type="hidden" id="content-hidden" value="@Content" />
     <div class="container-fluid custom_post_main_div" style="padding-top:30px;">
         <div class="form-group col-md-3">
             <label>Post Title</label>
-            <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" />
-
+            @if (ViewBag.Title == "Edit Post")
+            {
+                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" disabled="disabled" />
+            }
+            else
+            {
+                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" />
+            }
             <label>Post Category</label>
-            <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
+            @if (ViewBag.Title == "Edit Post")
+            {
+                <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@category" disabled />
+            }
+            else
+            {
+                <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@category" />
+            }
 
             <label>Category Caption</label>
-            <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" />
+            @if (ViewBag.Title == "Edit Post")
+            {
+                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" disabled />
+
+            }
+            else
+            {
+                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" />
+            }
 
             <label>Post Short Name</label>
-            <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" class="form-control" />
+            @if (ViewBag.Title == "Edit Post")
+            {
+                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" disabled value="@shortName" class="form-control" />
+
+            }
+            else
+            {
+                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" value="@shortName" class="form-control" />
+
+            }
 
             <label>SEO Title</label>
-            <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" />
+            @if (ViewBag.Title == "Edit Post")
+            {
+                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" disabled />
+
+            }
+            else
+            {
+                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" />
+
+            }
 
             <label>SEO Description</label>
-            <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" />
+            @if (ViewBag.Title == "Edit Post")
+            {
+                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" disabled value="@seoDesc" />
+            }
+            else
+            {
+                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" value="@seoDesc" />
+
+            }
+
+
+            <label>SEO URL</label>
+            @if (ViewBag.Title == "Edit Post")
+            {
+                <input type="text" id="txtseourl" name="seourl" placeholder="Enter SEO URL" class="form-control" value="@seoUrl" disabled />
+
+            }
+            else
+            {
+                <input type="text" id="txtseourl" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoUrl" />
+
+            }
 
         </div>
             @using (Html.BeginForm("FileUpload", "Custom_Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -30,7 +117,7 @@
 
                 <div class="form-group col-md-6">
                     <label>Icon Image</label>
-                    <div id="upldImagePreview"><img src="~/UploadImage/no-image.jpg" style="height:150px; width:250px;"  /></div>
+                    <div id="upldImagePreview"><img src="~/UploadImage/@image" style="height:150px; width:250px;"  /></div>
                     <div>
                         @Html.TextBox("file", "", new { @type = "file", @class = "form-control", @id = "uploadfile" })
                     </div>
@@ -57,12 +144,22 @@
 </div>
 
 <div class="container container-save text-center">
-    <input type="button" id="btnSave" class="btn btn-success" value="Save Post" disabled="disabled"/>
+    @if (ViewBag.Title == "Edit Post")
+    {
+        <input type="button" id="btnEdit" class="btn btn-success" value="Edit Post" disabled="disabled" />
+    }
+    else
+    {
+        <input type="button" id="btnSave" class="btn btn-success" value="Save Post" disabled="disabled" />
+    }
 </div>
 
 <script>
     $('textarea.editor').ckeditor();
     $(document).ready(function () {
+        debugger
+     
+         CKEDITOR.instances["editor1"].setData($("#content-hidden").val());
         $('#btnCreatePost').click(function () {
             var content = CKEDITOR.instances["editor1"].getData();
             $('.container-content').empty();
@@ -71,6 +168,7 @@
                 $('.container-content').css('color', 'black');
                 $('.container-content').html(content);
                 $('#btnSave').removeAttr('disabled');
+                $('#btnEdit').removeAttr('disabled');
             }
             else {
                 $('.container-content').css('color', 'red');
@@ -81,6 +179,11 @@
         $("#btnSave").click(event => {
             event.preventDefault();
             savePost();
+        });
+
+             $("#btnEdit").click(event => {
+            event.preventDefault();
+            editPost();
         });
 
         $("#imgfile").change(function (event) {
@@ -143,6 +246,7 @@
         var shortName = $("#txtshortname").val();
         var seoTitle = $('#txtseotitle').val();
         var seoDescription = $('#txtseodesc').val();
+        var seoUrl = $('#txtseourl').val();
 
         var postobj =
         {
@@ -153,7 +257,8 @@
             categoryName: categoryName,
             shortName: shortName,
             seoTitle: seoTitle,
-            seoDescription:seoDescription
+            seoDescription: seoDescription,
+            seoUrl:seoUrl
         }
         var data = JSON.stringify(postobj);
 
@@ -185,4 +290,45 @@
             });
         console.log();
     }
+
+        var editPost = () => {
+        var content = CKEDITOR.instances["editor1"].getData();
+        var seoUrl = $('#txturl').val();
+
+        var postobj =
+        {
+            postContent: content,           
+            seoUrl: seoUrl
+        }
+        var data = JSON.stringify(postobj);
+
+            $.ajax({
+                url: '/Custom_Post/Update',
+                method: 'post',
+                contentType: "application/json",
+                dataType:"json",
+                processData: false,
+                data: data,
+                async:false,
+                cache: false,
+                success: function (data) {
+                    debugger
+                    console.log(data);
+                    CKEDITOR.instances.editor1.setData("");
+                    $("#upldImagePreview").attr('value', '');
+                    $("#upldImagePreview>img").attr("src", "none");
+                    $("#upldImagePreview>img").css("height", "0");
+                    $("#upldImagePreview>img").css("width", "0");
+                    $('.container-content').html('');
+                    $('#uploadfile').val('');
+                    $("#txturl").val('');
+                    $("#txtcategory").val('');
+                },
+                error: function () {
+                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                }
+            });
+        console.log();
+    }
+
 </script>

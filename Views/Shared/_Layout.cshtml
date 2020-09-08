@@ -1,7 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @{ 
+        string seodesc = "";
+        if (!string.IsNullOrEmpty(ViewBag.SeoDesc))
+        {
+            seodesc = ViewBag.SeoDesc;
+        }
+    }
+    @model EverydayPower.Models.Get_Post_List
     <meta charset="utf-8" />
+    <meta name="description" content="@seodesc">
+    <meta name="keywords" content="HTML, Inspiration, Quotes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/styles/Index.css")
@@ -67,12 +77,60 @@
             <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav mr-auto headList">
-                    
                 </ul>
                 <form class="search-icon">
                     <span class="glyphicon glyphicon-search"></span>
                 </form>
+                <div style="float:right; padding-right:100px; padding-top:20px; font-size:35px;">
+                    <a href="#" class="glyphicon glyphicon-user" alt="Login As Admin" style="position:absolute;top:20px;" id="login-user"></a>
+                </div>
+
             </div>
+            @if (ViewBag.Login == "valid")
+            {
+        <form method="get" action="@Url.Action("Logout" ,"Home")" id="form-login" class="row" style="float:right;border:1px solid #E8E8E8; border-radius:10px; background-color:	#F5F5F5;position:absolute;right:50px; width:400px; height:200px;padding-top:3em;">
+            <div class="col-md-1"></div>
+            <div class="col-md-9 text-center">
+                <div class="row" style="padding-top:5px;">
+                    <div class="col-md-6">
+                        <input type="submit" class=" btn btn-primary form-control" id="form-btnlogout" name="Logout" value="Log Out" />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="button" class=" btn btn-danger form-control close" id="form-btnClose" name="Close" value="Close" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </form>
+            }
+            else
+            {
+                <form action="@Url.Action("Login" ,"Home")" id="form-login" class="row" style="float:right;border:1px solid #E8E8E8; border-radius:10px; background-color:	#F5F5F5;position:absolute;right:50px; width:400px; height:200px;padding-top:3em;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9 text-center">
+
+                        @*<input type="text" class="form-control" placeholder="Username" id="form-user" name="username" />*@
+
+                        @Html.TextBoxFor(m => m.UserDetails.username, new { @placeholder = "Username", @id = "form-user", @name = "username" ,@class="form-control"})
+
+                        @*<input type="password" class="form-control" placeholder="Password" id="form-Password" name="password" />*@
+                        @Html.TextBoxFor(m => m.UserDetails.password, new { @placeholder = "Password", @id = "form-Password", @name = "password" ,@class="form-control"})
+
+                        <div class="row" style="padding-top:5px;">
+                            <div class="col-md-6">
+                                <input type="submit" class=" btn btn-primary form-control" id="form-btnlogin" name="Login" value="Login" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="button" class=" btn btn-danger form-control " id="form-btnClose" name="Close" value="Close" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+                </form>
+
+            }
+
         </div>
     </div>
     <div class="container-fluid body-content">
@@ -162,8 +220,17 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <script>
+<script>
         $(document).ready(() => {
+            $('#form-login').hide();
+
+            $('#form-btnClose').click(function () {
+                            $('#form-login').hide();
+
+            });
+            $('.glyphicon-user').click(function () {
+                            $('#form-login').show();
+            });
 
 
              $.ajax({
@@ -175,7 +242,7 @@
                 async:false,
                 success: function (data) {
                     createNavbar(data);
-                  
+
                 },
                 error: function () {
                     alert("Error   " + apidomainurl + 'UpdateUsers');
@@ -186,13 +253,19 @@
                 var id = event.currentTarget.id;
                 var selector = "#" + id;
                 $(selector).next().show();
+                $(selector).next().removeClass('hide');
                 createListItems(selector);
-
             },
                 event => {
-                    var id = event.currentTarget.id;
-                    var selector = "#" + id;
-                    $(selector).next().hide();
+                   
+                });
+
+                  $(".dropdown-body").hover(event => {
+                
+
+            },
+                      event => {
+                   event.currentTarget.classList.add("hide");
                 });
 
             $(".custom_close").click(event => {
@@ -210,27 +283,40 @@
 
         var createNavbar = (data) => {
             debugger
+            var arr = [];
+            var count = 0;
             $('.headList').empty();
-            var listHtml = ` 
+            var listHtml = `
                     <li>
                         @*@Html.ActionLink("EVERYDAY POWER", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                         <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">EVERYDAY POWER</a>
                     </li>`;
             var subhtml = "";
             $.each(data.list, function (index, element) {
-                subhtml = subhtml + `<li>
-                        <a href="@Url.Action("Index" ,"Home")" class="dropdown-heading" value="`+ element.categoryId + `" id = "dropdown-heading_` + element.categoryName.replace(' ', '-') + `">` + element.categoryName.toUpperCase() +`</a>
+                if ($.inArray(arr, element.categoryId)==-1) {
+
+
+                    arr[count] = element.categoryId;
+                    count++;
+                    subhtml = subhtml + `<li>
+                        <a href="@Url.Action("Index" ,"Home")" class="dropdown-heading" value="`+ element.categoryId + `" id = "dropdown-heading_` + element.categoryName.replace(' ', '-') + `">` + element.categoryName.toUpperCase() + `</a>
                         <div class="dropdown-body">
                         </div>
                     </li>`;
+                }
+                debugger
             });
 
             listHtml = listHtml +
                 subhtml + `
 <li>
                         @*@Html.ActionLink("+ Create Post", "NewPost", "Custom_Post", new { @id = "dropdown-heading_Post", @class = "dropdown-heading"  })*@
-                        <a id="dropdown-heading_Post" class="" href="@Url.Action("NewPost" ,"Custom_Post")">+ Create Post</a> 
+                        @if (ViewBag.Login == "valid")
+                        {
+                        <a id="dropdown-heading_Post" class="" href="@Url.Action("NewPost" ,"Custom_Post")" >+ Create Post</a>
+                        }
                     </li>
+
 `;
             $('.headList').append(listHtml);
             $(".dropdown-body").hide();
@@ -249,14 +335,17 @@
                 processData: false,
                 async:false,
                     success: function (data) {
+                        $('.dropdown-body').empty();
+                        $('.dropdown-body').css("position" ,"absolute");
                         var listItem = '';
                         $.each(data.list, function (index, element) {
-                            listItem = listItem+ `<div style="min-height:2em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
+                            listItem = listItem+ `<div onclick="location.href='/Quotes/`+element.seoUrl+`';" style="min-height:2em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
                                             `+ element.shortName + `
                                     </div>`;
+                            debugger
                         });
-                        debugger
-                       var x = `<div style="min-height:3em;position:absolute;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; "></div>`;
+                        
+                       var x = `<div style="min-height:3em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; "></div>`;
                         $(selector).next().append(listItem);
                 },
                 error: function () {
@@ -265,6 +354,6 @@
             });
             }
         }
-    </script>
+</script>
 </body>
 </html>
