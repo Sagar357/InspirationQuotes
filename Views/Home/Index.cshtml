@@ -13,6 +13,32 @@
         <script>
     $(document).ready(function () {
 
+        $('#btnSearch').click(function () {
+            debugger
+            $('.container-top').empty();
+            var searchStr = $('#txtSearchBox').val();
+            var obj = {
+                searchStr: searchStr
+            }
+            var data = JSON.stringify(obj);
+            $.ajax({
+                url: '@Url.Action("Search","Home")',
+                data: data,
+                contentType: 'application/json',
+                method: 'post',
+                dataType: 'json',
+                processData: false,
+                async: false,
+                success: function (data) {
+                    createHtmlLatestItem(data.list);
+                },
+                error: function (error) {
+                    debugger
+                    console.log(error);
+                }
+            });
+        });
+
         $.ajax({
                 url: '/Custom_Post/GetAll',
                 method: 'get',
@@ -21,12 +47,10 @@
                 processData: false,
                 async:false,
                 success: function (data) {
-                    debugger
-
                     createHtmlLatestItem(data.list);
                 },
-                error: function () {
-                    alert("Error   " + apidomainurl + 'UpdateUsers');
+            error: function (error) {
+                console.log(error);
                 }
             });
 

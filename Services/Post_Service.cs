@@ -347,6 +347,93 @@ namespace EverydayPower.Services
             return list;
         }
 
+        public Get_Post_List SearchService(string searchStr)
+        {
+            string status = "failed";
+            Get_Post_List list = new Get_Post_List();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
+                {
+                    DataSet ds = new DataSet();
+                    con.Open();
+                    SqlParameter[] param = new SqlParameter[3];
+                    param[0] = new SqlParameter("@strSearch", searchStr);
+                    ds = SqlHelper.ExecuteDataset(con, CommandType.StoredProcedure, "tmpprcsearch", param);
+                    foreach (DataTable dt in ds.Tables)
+                    {
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            Post_Model obj = new Post_Model();
+                            if (!string.IsNullOrEmpty(dr["post_id"].ToString()))
+                            {
+                                obj.postId = Convert.ToInt32(dr["post_id"].ToString());
+                            }
+                            else
+                            {
+                                obj.postId = 0;
+                            }
+                            if (!string.IsNullOrEmpty(dr["post_url"].ToString()))
+                            {
+                                obj.postUrl = dr["post_url"].ToString();
+                            }
+                            else
+                            {
+                                obj.postUrl = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["file_name"].ToString()))
+                            {
+                                obj.postIconImage = dr["file_name"].ToString();
+                            }
+                            else
+                            {
+                                obj.postIconImage = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["file_path"].ToString()))
+                            {
+                                obj.postIconImagePath = dr["file_path"].ToString();
+                            }
+                            else
+                            {
+                                obj.postIconImagePath = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["category_name"].ToString()))
+                            {
+                                obj.category = dr["category_name"].ToString();
+                            }
+                            else
+                            {
+                                obj.category = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["seo_url"].ToString()))
+                            {
+                                obj.seoUrl = dr["seo_url"].ToString();
+                            }
+                            else
+                            {
+                                obj.seoUrl = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["post_category"].ToString()))
+                            {
+                                obj.categoryName = dr["post_category"].ToString();
+                            }
+                            else
+                            {
+                                obj.categoryName = "";
+                            }
+                            list.list.Add(obj);
+                        }
+                    }
+                }
+                list.message = "fetched";
+            }
+            catch (Exception ex)
+            {
+                list.message = ex.Message;
+            }
+            return list;
+        }
+
 
         public Get_Post_List LoginService(Login_model user)
         {
@@ -358,13 +445,26 @@ namespace EverydayPower.Services
                 {
                     DataSet ds = new DataSet();
                     con.Open();
-                    SqlParameter[] param = new SqlParameter[2];
+                    SqlParameter[] param = new SqlParameter[4];
                     param[0] = new SqlParameter("@username", user.username);
                     param[1] = new SqlParameter("@password", user.password);
+                    param[2] = new SqlParameter("@IsValid" ,SqlDbType.Int);
+                    param[2].Direction = ParameterDirection.Output;
                     ds = SqlHelper.ExecuteDataset(con, CommandType.StoredProcedure, "tmpprclogin", param);
-                    if (ds.Tables.Count > 0 )
+                    int OutParam = 0;
+                    if (!String.IsNullOrEmpty(Convert.ToString(param[2].Value)) )
+                    {
+                        OutParam = Convert.ToInt32(param[2].Value);
+                    }
+                    if (OutParam == 1)
                     {
                         list.message = "valid";
+
+                    }
+                    else if (OutParam == 0)
+                    {
+                        list.message = "invalid";
+
                     }
                 }
             }

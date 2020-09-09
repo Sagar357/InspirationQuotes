@@ -65,4 +65,9 @@ namespace EverydayPower.Models
         public List<Category_Model> list { get; set; }
         public string message { get; set; }
     }
+
+    public class Search_Model
+    {
+        public string searchStr { get; set; }
+    }
 }

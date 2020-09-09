@@ -14,6 +14,7 @@ namespace EverydayPower.Controllers
         {
             Get_Post_List list = new Get_Post_List(); ;
             var session = Session["username"];
+            ViewBag.attempt = Session["attempt"];
             if (session != null)
             {
                 ViewBag.Login = "valid";
@@ -40,6 +41,14 @@ namespace EverydayPower.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult Search(Search_Model input)
+        {
+            Get_Post_List model = new Get_Post_List();
+            Services.Post_Service services = new Services.Post_Service();
+            model=services.SearchService(input.searchStr);
+            return Json(model ,JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Login(Get_Post_List model)
         {
             Services.Post_Service services = new Services.Post_Service();
@@ -51,6 +60,12 @@ namespace EverydayPower.Controllers
                 if (list.message == "valid")
                 {
                     Session["username"] = model.UserDetails.username;
+                    Session["attempt"] = "success";
+
+                }
+                else
+                {
+                    Session["attempt"] = "failed";
                 }
             }
             else

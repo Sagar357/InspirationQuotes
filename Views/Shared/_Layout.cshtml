@@ -32,19 +32,7 @@
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">*@
 </head>
 <body>
-    <!--Search Pannel Start-->
-    <div class="container-fluid hidden-ele search-screen">
-        <div class="custom_close">
-            <span>X</span>
-        </div>
-
-        <div class="search-box">
-
-            <input type="text" name="searchbox" id="txtSearchBox" placeholder="SEARCH" />
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!--Search Pannel End-->
+   
     <!--Side Menu Pannel Start-->
 
     <div class="side-menubar hidden-ele">
@@ -69,21 +57,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class="menu-icon-hidden">
-                    <span class="glyphicon glyphicon-align-left"></span>
-                </div>
+                
             </div>
 
             <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav mr-auto headList">
                 </ul>
-                <form class="search-icon">
-                    <span class="glyphicon glyphicon-search"></span>
-                </form>
-                <div style="float:right; padding-right:100px; padding-top:20px; font-size:35px;">
+               
+                <div style="float:right; padding-right:100px; padding-top:20px; font-size:25px;">
                     <a href="#" class="glyphicon glyphicon-user" alt="Login As Admin" style="position:absolute;top:20px;" id="login-user"></a>
                 </div>
+                <form class="search-icon" style="float:right; padding-right:100px; padding-top:20px; font-size:25px;">
+                    <span class="glyphicon glyphicon-search"></span>
+                </form>
+                <form id="form-search">
+                    <div style="float:right; padding-right:100px; padding-top:10px; font-size:25px; ">
+                        <input type="button" class="btn btn-primary custom_btns" value="Search" id="btnSearch" />
+                    </div>
+                    <div style="float:right; padding-right:100px; padding-top:10px; width: 50%; font-size:25px; height:55px;">
+                        <input type="text" id="txtSearchBox" class="form-control" placeholder="Search....." style=" height:45px;" />
+                    </div>
+                </form>
 
             </div>
             @if (ViewBag.Login == "valid")
@@ -99,6 +94,7 @@
                         <input type="button" class=" btn btn-danger form-control close" id="form-btnClose" name="Close" value="Close" />
                     </div>
                 </div>
+                
             </div>
             <div class="col-md-2"></div>
         </form>
@@ -111,10 +107,10 @@
 
                         @*<input type="text" class="form-control" placeholder="Username" id="form-user" name="username" />*@
 
-                        @Html.TextBoxFor(m => m.UserDetails.username, new { @placeholder = "Username", @id = "form-user", @name = "username" ,@class="form-control"})
+                        @Html.TextBoxFor(m => m.UserDetails.username, new { @placeholder = "Username", @id = "form-user", @name = "username", @class = "form-control" })
 
                         @*<input type="password" class="form-control" placeholder="Password" id="form-Password" name="password" />*@
-                        @Html.TextBoxFor(m => m.UserDetails.password, new { @placeholder = "Password", @id = "form-Password", @name = "password" ,@class="form-control"})
+                        @Html.TextBoxFor(m => m.UserDetails.password, new { @placeholder = "Password", @id = "form-Password", @name = "password", @class = "form-control" })
 
                         <div class="row" style="padding-top:5px;">
                             <div class="col-md-6">
@@ -124,6 +120,11 @@
                                 <input type="button" class=" btn btn-danger form-control " id="form-btnClose" name="Close" value="Close" />
                             </div>
                         </div>
+                        @if(ViewBag.attempt=="failed"){
+                        <div>
+                            <p style="color:red;">Invalid User!</p>
+                        </div>
+                        }
 
                     </div>
                     <div class="col-md-2"></div>
@@ -203,7 +204,7 @@
                     </li>
 
                 </ul>
-                <div style="width:420px; display:inline-block;"></div>
+                <div style="width:800px; display:inline-block;"></div>
 
             </div>
 
@@ -223,6 +224,7 @@
 <script>
         $(document).ready(() => {
             $('#form-login').hide();
+            $('#form-search').hide();
 
             $('#form-btnClose').click(function () {
                             $('#form-login').hide();
@@ -273,7 +275,8 @@
                 $(event.currentTarget.parentElement).hide();
             });
             $(".search-icon").click(event => {
-                $(".search-screen").show();
+                debugger
+                $("#form-search").toggle("slow");
             });
             $(".menu-icon-hidden").click(function () {
                 $(".side-menubar").show();
@@ -361,5 +364,10 @@
             }
         }
 </script>
+    <style>
+        input{
+            max-width:100%;
+        }
+    </style>
 </body>
 </html>

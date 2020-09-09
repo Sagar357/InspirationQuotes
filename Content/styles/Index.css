@@ -78,13 +78,12 @@ p{
     display:inline-block
 }
 .box {
-    background-color: #00e673;
+    background-color: #009de6;
     padding-top: 4px;
     height: 2em;
     width: auto;
     margin-top: 9em;
     margin-bottom: 15px;
-    transform: skewX(-15deg);
     color: white;
     display: inline-block;
     font-weight: 900;
