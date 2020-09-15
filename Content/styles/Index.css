@@ -47,6 +47,7 @@ p{
     position: relative;
     text-align: center;
     color: white;
+    margin-bottom:9em;
 }
 .sub-container>img{
     height:250px;
@@ -54,8 +55,8 @@ p{
     vertical-align:auto;
 }
 .info > p {
-    font-size: 14px;
-    color: lightgrey;
+    font-size: 20px;
+    color: #009de6;
     margin-top: 0.5em;
     padding-bottom: 0.2em;
 }
@@ -65,7 +66,7 @@ p{
 }
 
 .container{
-    margin-top:0.5em;
+    margin-top:9em;
     margin-right:1em;
 }
 
@@ -90,10 +91,10 @@ p{
 }
 
 .bottom-left p {
-    font-size: 10px;
-    color: #00ffcc;
-    text-align:left;
-    padding:0px 0px 0px 10px;
+    font-size: 20px;
+    color: #009de6;
+    text-align: left;
+    padding: 0px 0px 0px 10px;
 }
 
 .bottom-left>span {
@@ -120,5 +121,5 @@ p{
     }
         .side-link > li > a:hover {
             text-decoration: none;
-            color: #00e673;
+            color: #009de6;
         }

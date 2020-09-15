@@ -28,7 +28,8 @@ namespace EverydayPower
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/styles/Custom-Post.css"));
+                      "~/Content/styles/Custom-Post.css",
+                       "~/ckeditor/plugins/dialog/styles/dialog.css"));
         }
     }
 }

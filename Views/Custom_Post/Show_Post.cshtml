@@ -1,6 +1,11 @@
 ﻿@model EverydayPower.Models.Get_Post_List
 @{
-    ViewBag.SeoDesc=Model.list[0].seoDescription;
+    string seodesc = "";
+    if (Model.list!=null)
+    {
+        seodesc = Model.list[0].seoDescription.ToString();
+    }
+    ViewBag.SeoDesc=seodesc;
     ViewBag.Title=Model.list[0].seoTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -20,6 +25,7 @@
                         <div class="clearfix"></div>
 
                     }
+                    <h1 class="text-center" style="padding:10px; font-weight:600;">@m.postUrl</h1>
                     @(new HtmlString(m.postContent))
                 }
 

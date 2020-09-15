@@ -18,6 +18,17 @@ namespace EverydayPower.Services
             string status = "failed";
             try
             {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("category_name");
+                dt.Columns.Add("category_desc");
+                int i = 0;
+                foreach (var element in model.categoryList)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["category_name"] = element.categoryName;
+                    dr["category_desc"] = element.categoryDesc;
+                    dt.Rows.Add(dr);
+                }
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
                 {
                     con.Open();
@@ -28,8 +39,7 @@ namespace EverydayPower.Services
                     cmd.Parameters.AddWithValue("@post_url", model.postUrl);
                     cmd.Parameters.AddWithValue("@post_content", model.postContent);
                     cmd.Parameters.AddWithValue("@post_icon_image", model.fileAttachmentCode);
-                    cmd.Parameters.AddWithValue("@post_category", model.category);
-                    cmd.Parameters.AddWithValue("@post_category_desc", model.categoryName);
+                    cmd.Parameters.AddWithValue("@post_category", dt);
                     cmd.Parameters.AddWithValue("@shortname", model.shortName);
                     cmd.Parameters.AddWithValue("@seotitle", model.seoTitle);
                     cmd.Parameters.AddWithValue("@seodesc", model.seoDescription);
@@ -73,23 +83,41 @@ namespace EverydayPower.Services
         }
 
 
-        public string Update(PostEdit model)
+        public string Update(Post_Model model)
         {
             string status = "failed";
             try
             {
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
-                {
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = con;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "tmp_prc_UpdatePostData";
-                    cmd.Parameters.AddWithValue("@post_content", model.postContent);
-                    cmd.Parameters.AddWithValue("@seo_url", model.seoUrl.Replace(" ", "-"));
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("category_name");
+                    dt.Columns.Add("category_desc");
+                    int i = 0;
+                    foreach (var element in model.categoryList)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["category_name"] = element.categoryName;
+                        dr["category_desc"] = element.categoryDesc;
+                        dt.Rows.Add(dr);
+                    }
+                    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
+                    {
+                        con.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "tmp_prc_UpdatePostData";
+                        cmd.Parameters.AddWithValue("@post_url", model.postUrl);
+                        cmd.Parameters.AddWithValue("@post_content", model.postContent);
+                        cmd.Parameters.AddWithValue("@post_icon_image", model.fileAttachmentCode);
+                        cmd.Parameters.AddWithValue("@post_category", dt);
+                        cmd.Parameters.AddWithValue("@shortname", model.shortName);
+                        cmd.Parameters.AddWithValue("@seotitle", model.seoTitle);
+                        cmd.Parameters.AddWithValue("@seodesc", model.seoDescription);
+                        cmd.Parameters.AddWithValue("@seo_url", model.seoUrl.Replace(" ", "-"));
 
-                    cmd.ExecuteNonQuery();
-                }
+                        cmd.ExecuteNonQuery();
+                    }
+                
                 status = "Updated";
             }
             catch (Exception ex)
@@ -485,23 +513,23 @@ namespace EverydayPower.Services
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
                 {
                     DataSet ds = new DataSet();
+                    Post_Model obj = new Post_Model();
                     con.Open();
                     SqlParameter[] param = new SqlParameter[2];
                     param[0] = new SqlParameter("@seo_url", id);
                     ds = SqlHelper.ExecuteDataset(con, CommandType.StoredProcedure, "tmp_prc_getPostData" ,param);
-                    foreach (DataTable dt in ds.Tables)
+                    using (DataTable dt = ds.Tables[0])
                     {
                         foreach (DataRow dr in dt.Rows)
                         {
-                            Post_Model obj = new Post_Model();
-                            if (!string.IsNullOrEmpty(dr["post_id"].ToString()))
-                            {
-                                obj.postId = Convert.ToInt32(dr["post_id"].ToString());
-                            }
-                            else
-                            {
-                                obj.postId = 0;
-                            }
+                            //if (!string.IsNullOrEmpty(dr["post_id"].ToString()))
+                            //{
+                            //    obj.postId = Convert.ToInt32(dr["post_id"].ToString());
+                            //}
+                            //else
+                            //{
+                            //    obj.postId = 0;
+                            //}
                             if (!string.IsNullOrEmpty(dr["post_url"].ToString()))
                             {
                                 obj.postUrl = dr["post_url"].ToString();
@@ -526,14 +554,14 @@ namespace EverydayPower.Services
                             {
                                 obj.postIconImagePath = "";
                             }
-                            if (!string.IsNullOrEmpty(dr["post_category"].ToString()))
-                            {
-                                obj.category = dr["post_category"].ToString();
-                            }
-                            else
-                            {
-                                obj.category = "";
-                            }
+                            //if (!string.IsNullOrEmpty(dr["post_category"].ToString()))
+                            //{
+                            //    obj.category = dr["post_category"].ToString();
+                            //}
+                            //else
+                            //{
+                            //    obj.category = "";
+                            //}
                             if (!string.IsNullOrEmpty(dr["post_content"].ToString()))
                             {
                                 obj.postContent = dr["post_content"].ToString();
@@ -566,7 +594,65 @@ namespace EverydayPower.Services
                             {
                                 obj.seoDescription = "";
                             }
+                            if (!string.IsNullOrEmpty(dr["shortname"].ToString()))
+                            {
+                                obj.shortName = dr["shortname"].ToString();
+                            }
+                            else
+                            {
+                                obj.shortName = "";
+                            }
+                            //if (!string.IsNullOrEmpty(dr["categorycaption"].ToString()))
+                            //{
+                            //    obj.categoryName = dr["categorycaption"].ToString();
+                            //}
+                            //else
+                            //{
+                            //    obj.categoryName = "";
+                            //}
+                            if (!string.IsNullOrEmpty(dr["file_attachment_code"].ToString()))
+                            {
+                                obj.fileAttachmentCode = dr["file_attachment_code"].ToString();
+                            }
+                            else
+                            {
+                                obj.fileAttachmentCode = "";
+                            }
+                            
                             list.list.Add(obj);
+                        }
+                    }
+
+                    using (DataTable dt = ds.Tables[1])
+                    {
+                        foreach(DataRow dr in dt.Rows)
+                        {
+                            Category_Model model = new Category_Model();
+                            if (!string.IsNullOrEmpty(dr["category_name"].ToString()))
+                            {
+                                model.categoryName = dr["category_name"].ToString();
+                            }
+                            else
+                            {
+                                model.categoryName = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["category_desc"].ToString()))
+                            {
+                                model.categoryDesc = dr["category_desc"].ToString();
+                            }
+                            else
+                            {
+                                model.categoryDesc = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["category_id"].ToString()))
+                            {
+                                model.categoryId = Convert.ToInt32(dr["category_id"]);
+                            }
+                            else
+                            {
+                                model.categoryId = 0;
+                            }
+                            list.categoryList.Add(model);
                         }
                     }
                 }

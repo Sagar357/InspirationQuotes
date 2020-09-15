@@ -4,11 +4,17 @@
     string Content = "";
     string postTitle = "";
     string seoTitle = "";
-    string category = "";
+    List<string> category = new List<string>();
     string seoDesc = "";
     string shortName = "";
     string image = "no-image.jpg";
     string seoUrl = "";
+    string categoryDesc = "";
+    string fileattach = "";
+     if (Model.categoryList.Count > 0)
+     {
+     categoryDesc = Model.categoryList.FirstOrDefault(m=>!string.IsNullOrEmpty(m.categoryDesc.ToString())).ToString();
+     }
     if (Model.list.Count>0)
     {
         ViewBag.Title = "Edit Post";
@@ -17,11 +23,15 @@
             Content = model.postContent;
             postTitle = model.postUrl;
             seoTitle = model.seoTitle;
-            category = model.category;
             seoDesc = model.seoDescription;
             shortName = model.shortName;
             image = model.postIconImage;
             seoUrl = model.seoUrl;
+            fileattach = model.fileAttachmentCode;
+        }
+        foreach( var ele in Model.categoryList)
+        {
+            category.Add( ele.categoryName);
         }
     }
     else
@@ -36,26 +46,42 @@
             <label>Post Title</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" disabled="disabled" />
+                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle"  />
             }
             else
             {
                 <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" />
+
             }
             <label>Post Category</label>
+            <span class="glyphicon glyphicon-plus-sign"></span>
+
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@category" disabled />
+        <div class="category">
+            @foreach (string cat in category)
+            {
+
+            <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@cat"  />
+
+            }
+        </div>
+
             }
             else
             {
-                <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@category" />
+
+            <div class="category">
+                <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
+            </div>
+
+
             }
 
             <label>Category Caption</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" disabled />
+                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control"  value="@categoryDesc" />
 
             }
             else
@@ -66,7 +92,7 @@
             <label>Post Short Name</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" disabled value="@shortName" class="form-control" />
+                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down"  value="@shortName" class="form-control" />
 
             }
             else
@@ -78,7 +104,7 @@
             <label>SEO Title</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" disabled />
+                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle"  />
 
             }
             else
@@ -90,7 +116,7 @@
             <label>SEO Description</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" disabled value="@seoDesc" />
+                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control"  value="@seoDesc" />
             }
             else
             {
@@ -102,7 +128,7 @@
             <label>SEO URL</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtseourl" name="seourl" placeholder="Enter SEO URL" class="form-control" value="@seoUrl" disabled />
+                <input type="text" id="txtseourl" name="seourl" placeholder="Enter SEO URL" class="form-control" value="@seoUrl"  />
 
             }
             else
@@ -117,7 +143,9 @@
 
                 <div class="form-group col-md-6">
                     <label>Icon Image</label>
-                    <div id="upldImagePreview"><img src="~/UploadImage/@image" style="height:150px; width:250px;"  /></div>
+                    <div id="upldImagePreview" fileattachmentcode="@fileattach">
+                        <img src="~/UploadImage/@image" style="height:150px; width:250px;"  />
+                    </div>
                     <div>
                         @Html.TextBox("file", "", new { @type = "file", @class = "form-control", @id = "uploadfile" })
                     </div>
@@ -155,6 +183,10 @@
 </div>
 
 <script>
+    $('.glyphicon-plus-sign').click(function () {
+        var html='<input type="text" id="txtcategory1" name="category" placeholder="Enter Category of Post" class="form-control" value="" />'
+        $('.category').append(html);
+    });
     $('textarea.editor').ckeditor();
     $(document).ready(function () {
         debugger
@@ -241,8 +273,15 @@
         var content = CKEDITOR.instances["editor1"].getData();
         var imageJSON = JSON.parse($("#upldImagePreview").attr('value'));
         var title = $("#txturl").val();
-        var category = $("#txtcategory").val();
         var categoryName = $("#txtcategoryname").val();
+        var categoryList = [];
+        var children=$('.category').children();
+        for (var i = 0; i < children.length; i++){
+            categoryList[i] = {
+                categoryName: children[i].value,
+                categoryDesc:categoryName
+            }
+        }
         var shortName = $("#txtshortname").val();
         var seoTitle = $('#txtseotitle').val();
         var seoDescription = $('#txtseodesc').val();
@@ -253,8 +292,7 @@
             postUrl: title,
             postContent: content,
             fileAttachmentCode: imageJSON.fileAttachmentCode,
-            category: category,
-            categoryName: categoryName,
+            categoryList: categoryList,
             shortName: shortName,
             seoTitle: seoTitle,
             seoDescription: seoDescription,
@@ -272,17 +310,7 @@
                 async:false,
                 cache: false,
                 success: function (data) {
-                    debugger
-                    console.log(data);
-                    CKEDITOR.instances.editor1.setData("");
-                    $("#upldImagePreview").attr('value', '');
-                    $("#upldImagePreview>img").attr("src", "none");
-                    $("#upldImagePreview>img").css("height", "0");
-                    $("#upldImagePreview>img").css("width", "0");
-                    $('.container-content').html('');
-                    $('#uploadfile').val('');
-                    $("#txturl").val('');
-                    $("#txtcategory").val('');
+                    location.href='@Url.Action("Index","Home")';
                 },
                 error: function () {
                     alert("Error   " + apidomainurl + 'UpdateUsers');
@@ -291,14 +319,44 @@
         console.log();
     }
 
-        var editPost = () => {
-        var content = CKEDITOR.instances["editor1"].getData();
-        var seoUrl = $('#txturl').val();
+    var editPost = () => {
+        debugger
+            var content = CKEDITOR.instances["editor1"].getData();
+            var imageJSON ;
+            var fileattach = "";
+            let file = $('#uploadfile')[0];
+            if (file.files.length > 0) {
+                imageJSON = JSON.parse($("#upldImagePreview").attr('value'));
+                fileattach = imageJSON.fileAttachmentCode;
+            }
+            else {
+                fileattach=$("#upldImagePreview").attr('fileattachmentcode')
+            }
+        var title = $("#txturl").val();
+        var categoryName = $("#txtcategoryname").val();
+        var categoryList = [];
+        var children=$('.category').children();
+        for (var i = 0; i < children.length; i++){
+            categoryList[i] = {
+                categoryName: children[i].value,
+                categoryDesc:categoryName
+            }
+        }
+        var shortName = $("#txtshortname").val();
+        var seoTitle = $('#txtseotitle').val();
+        var seoDescription = $('#txtseodesc').val();
+        var seoUrl = $('#txtseourl').val();
 
         var postobj =
         {
-            postContent: content,           
-            seoUrl: seoUrl
+            postUrl: title,
+            postContent: content,
+            fileAttachmentCode: fileattach,
+            categoryList: categoryList,
+            shortName: shortName,
+            seoTitle: seoTitle,
+            seoDescription: seoDescription,
+            seoUrl:seoUrl
         }
         var data = JSON.stringify(postobj);
 
@@ -312,17 +370,7 @@
                 async:false,
                 cache: false,
                 success: function (data) {
-                    debugger
-                    console.log(data);
-                    CKEDITOR.instances.editor1.setData("");
-                    $("#upldImagePreview").attr('value', '');
-                    $("#upldImagePreview>img").attr("src", "none");
-                    $("#upldImagePreview>img").css("height", "0");
-                    $("#upldImagePreview>img").css("width", "0");
-                    $('.container-content').html('');
-                    $('#uploadfile').val('');
-                    $("#txturl").val('');
-                    $("#txtcategory").val('');
+                    location.href='@Url.Action("Index","Home")';
                 },
                 error: function () {
                     alert("Error   " + apidomainurl + 'UpdateUsers');

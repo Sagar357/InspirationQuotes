@@ -17,5 +17,15 @@ namespace EverydayPower
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        //void Session_Start(object sender, EventArgs e)
+        //{
+        //    Session.Timeout = 60;
+        //}
+
+        protected void Session_Start(object sender ,EventArgs e)
+        {
+            Session.Timeout = 525600;
+        }
     }
 }

@@ -88,7 +88,7 @@ namespace EverydayPower.Controllers
         }
 
         [HttpPost]
-        public JsonResult Update(PostEdit postobj)
+        public JsonResult Update(Post_Model postobj)
         {
             string status = "";
             Services.Post_Service postService = new Services.Post_Service();

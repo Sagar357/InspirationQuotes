@@ -4,17 +4,24 @@
 @model EverydayPower.Models.Get_Post_List
 
 
-    <div class="row container-top text-center" onclick="handleClick()">
+    <div class="row container-top text-center" >
     </div>
 
 
     <div class="container"></div>
 
         <script>
+
+ function unique(category) {
+    return $.grep(category, function(el, index) {
+        return index == $.inArray(el, category);
+    });
+}
+
     $(document).ready(function () {
 
         $('#btnSearch').click(function () {
-            debugger
+       
             $('.container-top').empty();
             var searchStr = $('#txtSearchBox').val();
             var obj = {
@@ -33,7 +40,7 @@
                     createHtmlLatestItem(data.list);
                 },
                 error: function (error) {
-                    debugger
+
                     console.log(error);
                 }
             });
@@ -46,7 +53,8 @@
                 dataType:"json",
                 processData: false,
                 async:false,
-                success: function (data) {
+            success: function (data) {
+               
                     createHtmlLatestItem(data.list);
                 },
             error: function (error) {
@@ -67,15 +75,15 @@
 
             }
 
-            var createHtmlLatestItem = (data) => {
-                debugger
+ var createHtmlLatestItem = (data) => {
+            
         var id = data[0].seoUrl;
 
         var html = `
         <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/`+id+`';"  >
-            <img src='' class="main-image" style=" width: 1500px; height: 400px;" />
+            <img src='' class="main-image" style=" width: 1500px; height: 500px;" />
         </div>
-        <div class=" col-md-12 main-text " style="  float:left;  position:absolute;top:8em;">
+        <div class=" col-md-12 main-text " style="  float:left; left:6.5em; position:absolute;top:47%; background:black; opacity:0.6; width:35em">
             `+data[0].postUrl+`
             <p>
                 Life can feel impossible sometimes. Discover what to do when you feel like giving up. While giving up seems to...
@@ -94,7 +102,7 @@
         for (var i = 0; i < data.length; i++) {
             category[i] = data[i].category;
         }
-        $.unique(category);
+     category=unique(category);
 
        
                     var latestcategory = category[0]
@@ -108,12 +116,12 @@
 
         frameHtml = frameHtml + '</div>'
 
-        for (var i = 1; i < category.length; i++) {
+        for (var i = 0; i < category.length; i++) {
             frameHtml = frameHtml + `<div class="row">
             <div class="col-md-4 line"></div>
             <div class="col-md-3 box text-center">
                 <span>
-                    `+ category[i] +`
+                    `+ category[i].toUpperCase() +`
                 </span>
             </div>
             <div class="col-md-5 line"></div>
@@ -122,7 +130,7 @@
             var subhtml = '<div class="row">';
             for (var j = 0; j < data.length; j++) {
                 if (data[j].category === category[i]) {
-
+           
                     if (count<2)
                         subhtml = subhtml + createMainSubContent(category[i], data[j]) + `</div>`;
                     else
@@ -130,29 +138,27 @@
                         count++;
 
                 }
-                if (count == 2) {
+                if (count == 2 && i>0) {
                     subhtml = subhtml+ '<div class="row">';
                 }
 
             }
             subhtml = subhtml + '</div>';
-              debugger
+      
             frameHtml = frameHtml + subhtml;
         }
 
-        console.log(subhtml);
         $('.container').append(frameHtml);
 
-    }
+ }
 
     var createMainSubContent = (cat ,data ,count) => {
-        debugger
         var id = data.seoUrl;
-        return `<div class="col-md-6 sub-container"  onclick="location.href='/Quotes/`+id+`';">
+        return `<div class="col-md-6 sub-container" style="margin-bottom:3em;"  onclick="location.href='/Quotes/`+id+`';">
                 <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
                 <div class="bottom-left">
                     <p>
-                       `+ cat +`
+                       `+ cat.toUpperCase() +`
                     </p>
                     <span>
                         `+ data.postUrl +`
@@ -162,12 +168,11 @@
              var createSubContent = (value) => {
 
                  var id = value.seoUrl;
-
         return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+id+`';">
                 <img width="300" height="200" src="../../UploadImage/` + value.postIconImage + `" />
                 <div class="info">
                     <p>
-                        `+ value.category +`
+                        `+ value.category.toUpperCase() +`
                     </p>
                     <span>
                         `+ value.postUrl +`

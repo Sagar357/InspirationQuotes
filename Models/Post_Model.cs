@@ -7,18 +7,31 @@ namespace EverydayPower.Models
 {
     public class Post_Model
     {
+        public Post_Model()
+        {
+            this.categoryList = new List<Category_Model>();
+        }
         public string fileAttachmentCode { get; set; }
         public string postContent { get; set; }
         public string postIconImage { get; set; }
         public string postIconImagePath { get; set; }
         public string postUrl { get; set; }
         public int postId { get; set; }
-        public string category { get; set; }
         public string seoUrl { get; set; }
-        public string categoryName { get; set; }
         public string shortName { get; set; }
         public string seoTitle { get; set; }
         public string seoDescription { get; set; }
+        public string categoryName { get; set; }
+        public string category { get; set; }
+        public List<Category_Model> categoryList { get; set; }
+
+    }
+
+    public class Category_Model
+    {
+        public int categoryId { get; set; }
+        public string categoryDesc { get; set; }
+        public string categoryName { get; set; }
 
     }
 
@@ -40,21 +53,24 @@ namespace EverydayPower.Models
         public Get_Post_List()
         {
             this.list = new List<Post_Model>();
+            this.categoryList = new List<Category_Model>();
         }
         public List<Post_Model> list { get; set; }
         public string message { get; set; }
         public Login_model UserDetails { get; set; }
         public Faq_model_list FaqList { get; set; }
-    }
-
-    public class Category_Model
-    {
-
-        public int categoryId { get; set; }
-        public string categoryDesc { get; set; }
-        public string categoryName { get; set; }
+        public List<Category_Model> categoryList { get; set; }
 
     }
+
+    //public class Category_Model
+    //{
+
+    //    public int categoryId { get; set; }
+    //    public string categoryDesc { get; set; }
+    //    public string categoryName { get; set; }
+
+    //}
 
     public class Get_Category_List
     {
