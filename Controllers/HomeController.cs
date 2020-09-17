@@ -9,7 +9,7 @@ namespace EverydayPower.Controllers
 {
     public class HomeController : Controller
     {
-        [Route("home")]
+        
         public ActionResult Index()
         {
             Get_Post_List list = new Get_Post_List(); ;
