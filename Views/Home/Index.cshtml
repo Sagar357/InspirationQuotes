@@ -7,9 +7,13 @@
     <div class="row container-top text-center" >
     </div>
 
+    <div class="outbox">
 
-    <div class="container"></div>
-
+    </div>
+    <div style="width:72%;">
+        <div class="container"></div>
+    </div>
+    <div style="width:25%;border:1px solid red;height:700px;display:inline-block;"></div>
         <script>
 
  function unique(category) {
@@ -47,15 +51,15 @@
         });
 
         $.ajax({
-                url: '/Custom_Post/GetAll',
+                url: '/Custom_Post/GetAll?pageIndex=0',
                 method: 'get',
                 contentType: "application/json",
                 dataType:"json",
                 processData: false,
                 async:false,
             success: function (data) {
-               
-                    createHtmlLatestItem(data.list);
+                
+                    createHtmlLatestItem(data);
                 },
             error: function (error) {
                 console.log(error);
@@ -75,8 +79,8 @@
 
             }
 
- var createHtmlLatestItem = (data) => {
-            
+ var createHtmlLatestItem = (obj) => {
+        var data = obj.list;
         var id = data[0].seoUrl;
 
         var html = `
@@ -96,26 +100,25 @@
         $('.container-top img').attr('src', '../../UploadImage/' + data[0].postIconImage +  '');
         var frameHtml = '<div class="row">';
         var count = 0;
-        $('.container').empty();
-
+     $('.container').empty();
         var category = [];
-        for (var i = 0; i < data.length; i++) {
-            category[i] = data[i].category;
+        for (var i = 0; i < obj.postCountList.length; i++) {
+            category[i] = obj.postCountList[i].category;
         }
-     category=unique(category);
 
        
-                    var latestcategory = category[0]
-            $.each(data, function (index, value) {
-            if (value.category === latestcategory && count < 4) {
-                frameHtml = frameHtml + createSubContent(value)
+     debugger
+     
+     $.each(data, function (index, value) {
+         
+            if ( count < 4) {
+                frameHtml = frameHtml + createSubContent(value ,true)
                 count++;
                 }
 
-        });
-
-        frameHtml = frameHtml + '</div>'
-
+     });
+     debugger
+     frameHtml = frameHtml + '</div>'
         for (var i = 0; i < category.length; i++) {
             frameHtml = frameHtml + `<div class="row">
             <div class="col-md-4 line"></div>
@@ -128,6 +131,7 @@
         </div>`;
             count = 0;
             var subhtml = '<div class="row">';
+            debugger
             for (var j = 0; j < data.length; j++) {
                 if (data[j].category === category[i]) {
            
@@ -138,17 +142,15 @@
                         count++;
 
                 }
-                if (count == 2 && i>0) {
-                    subhtml = subhtml+ '<div class="row">';
-                }
 
             }
             subhtml = subhtml + '</div>';
       
             frameHtml = frameHtml + subhtml;
-        }
-
-        $('.container').append(frameHtml);
+     }
+     //$('.outbox').append(frameHtml);
+     //$('.section-posts').append(frameHtml);
+     $('.container').append(frameHtml);
 
  }
 
@@ -158,21 +160,26 @@
                 <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
                 <div class="bottom-left">
                     <p>
-                       `+ cat.toUpperCase() +`
+                       
                     </p>
                     <span>
                         `+ data.postUrl +`
                     </span>
                 </div>`;
     }
-             var createSubContent = (value) => {
-
-                 var id = value.seoUrl;
-        return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+id+`';">
+var createSubContent = (value, showCategory) => {
+                
+                var id = value.seoUrl;
+                var category = '';
+                if (showCategory == true) {
+                    category=value.category
+                }
+            
+              return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+id+`';">
                 <img width="300" height="200" src="../../UploadImage/` + value.postIconImage + `" />
                 <div class="info">
                     <p>
-                        `+ value.category.toUpperCase() +`
+                        `+ category.toUpperCase() +`
                     </p>
                     <span>
                         `+ value.postUrl +`

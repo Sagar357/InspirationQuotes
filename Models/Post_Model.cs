@@ -54,12 +54,14 @@ namespace EverydayPower.Models
         {
             this.list = new List<Post_Model>();
             this.categoryList = new List<Category_Model>();
+            this.postCountList = new List<PostCount_Model>();
         }
         public List<Post_Model> list { get; set; }
         public string message { get; set; }
         public Login_model UserDetails { get; set; }
         public Faq_model_list FaqList { get; set; }
         public List<Category_Model> categoryList { get; set; }
+        public List<PostCount_Model> postCountList { get; set; }
 
     }
 
@@ -85,5 +87,12 @@ namespace EverydayPower.Models
     public class Search_Model
     {
         public string searchStr { get; set; }
+    }
+
+    public class PostCount_Model
+    {
+        public int categoryId { get; set; }
+        public int noOfPosts { get; set; }
+        public string category { get; set; }
     }
 }

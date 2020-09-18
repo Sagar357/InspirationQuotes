@@ -130,10 +130,10 @@ namespace EverydayPower.Controllers
 
         // POST: Custom_Post/Create
         [HttpGet]
-        public JsonResult GetAll()
+        public JsonResult GetAll(int pageIndex)
         {
             Services.Post_Service services = new Services.Post_Service();
-            return (Json(services.PostGetAll(), JsonRequestBehavior.AllowGet));
+            return (Json(services.PostGetAll(pageIndex), JsonRequestBehavior.AllowGet));
         }
 
         [Route("GetByCategoryId/{id}")]

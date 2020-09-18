@@ -175,7 +175,7 @@ namespace EverydayPower.Services
         }
 
 
-        public Get_Post_List PostGetAll()
+        public Get_Post_List PostGetAll(int pageIndex)
         {
             string status = "failed";
             Get_Post_List list = new Get_Post_List();
@@ -183,10 +183,13 @@ namespace EverydayPower.Services
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
                 {
-                    DataSet ds = new DataSet();
+                    DataSet dset = new DataSet();
                     con.Open();
-                    ds=SqlHelper.ExecuteDataset(con ,CommandType.StoredProcedure , "tmp_prc_getPostData" );
-                    foreach(DataTable dt in ds.Tables)
+                    SqlParameter[] param= new SqlParameter[3];
+                    dset=SqlHelper.ExecuteDataset(con ,CommandType.StoredProcedure , "tmp_prc_getPostData" ,param );
+                    DataTable dtable = Post_Service.SetPgination(dset, pageIndex);
+
+                    using (DataTable dt = dtable)
                     {
                         foreach(DataRow dr in dt.Rows)
                         {
@@ -250,6 +253,39 @@ namespace EverydayPower.Services
                             list.list.Add(obj);
                         }
                     }
+
+                    using (DataTable dt = dset.Tables[1])
+                    {
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            PostCount_Model countObj = new PostCount_Model();
+                            if (!string.IsNullOrEmpty(dr["category_id"].ToString()))
+                            {
+                                countObj.categoryId = Convert.ToInt32(dr["category_id"]);
+                            }
+                            else
+                            {
+                                countObj.categoryId = 0;
+                            }
+                            if (!string.IsNullOrEmpty(dr["category"].ToString()))
+                            {
+                                countObj.category = dr["category"].ToString();
+                            }
+                            else
+                            {
+                                countObj.category = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["no_of_posts"].ToString()))
+                            {
+                                countObj.noOfPosts = Convert.ToInt32(dr["no_of_posts"]);
+                            }
+                            else
+                            {
+                                countObj.noOfPosts = 0;
+                            }
+                            list.postCountList.Add(countObj);
+                        }
+                    }
                 }
                 list.message = "fetched";
             }
@@ -258,6 +294,28 @@ namespace EverydayPower.Services
                 list.message = ex.Message;
             }
             return list;
+        }
+
+        private static DataTable SetPgination(DataSet ds ,int pageIndex)
+        {
+            int row = 1;
+            DataTable response = new DataTable();
+            DataSet dataset = new DataSet();
+            foreach(DataRow dr in ds.Tables[1].Rows)
+            {
+                DataTable dt = ds.Tables[0].Select("category_name='"+ dr["category"].ToString() + "'" ).AsEnumerable().Skip(pageIndex * 10).Take(10).CopyToDataTable();
+                dataset.Tables.Add(dt);
+            }
+            foreach (DataTable dt in dataset.Tables)
+            {
+                
+                if(row<dataset.Tables.Count)
+                dataset.Tables[0].Merge(dataset.Tables[row]);
+                row++;
+            }
+            dataset.Tables[0].DefaultView.Sort="createddate DESC";
+            response = dataset.Tables[0];
+            return response;
         }
 
         public Get_Post_List PostGetByCategoryId( int CategoryId )
