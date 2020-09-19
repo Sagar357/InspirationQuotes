@@ -10,7 +10,7 @@
     <div class="outbox">
 
     </div>
-    <div style="width:72%;">
+    <div >
         <div class="container"></div>
     </div>
     <div style="width:25%;border:1px solid red;height:700px;display:inline-block;"></div>
@@ -87,7 +87,7 @@
         <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/`+id+`';"  >
             <img src='' class="main-image" style=" width: 1500px; height: 500px;" />
         </div>
-        <div class=" col-md-12 main-text " style="  float:left; left:6.5em; position:absolute;top:47%; background:black; opacity:0.6; width:35em">
+        <div class=" col-md-12 main-text " style="  position:absolute;top:47%; background:black; opacity:0.6;">
             `+data[0].postUrl+`
             <p>
                 Life can feel impossible sometimes. Discover what to do when you feel like giving up. While giving up seems to...
@@ -122,12 +122,12 @@
         for (var i = 0; i < category.length; i++) {
             frameHtml = frameHtml + `<div class="row">
             <div class="col-md-4 line"></div>
-            <div class="col-md-3 box text-center">
+            <div class="col-md-4 box text-center">
                 <span>
                     `+ category[i].toUpperCase() +`
                 </span>
             </div>
-            <div class="col-md-5 line"></div>
+            <div class="col-md-4 line"></div>
         </div>`;
             count = 0;
             var subhtml = '<div class="row">';
