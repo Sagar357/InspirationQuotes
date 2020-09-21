@@ -12,8 +12,18 @@
     width: 100%;
     color: white;
     font-size: 40px;
+
 }
 
+    .container-top::after ,.container-top::before {
+        display: table;
+        content: " ";
+    }
+
+    .container-top::after{
+        clear:both;
+        clear:both;
+    }
 
     .main-image {
         width: 100%;
@@ -141,5 +151,13 @@ p{
         width: 100%;
         top: 27%;
         font-size: x-large;
+    }
+
+    .line{
+        display:none;
+    }
+
+    .quotes{
+        text-align:center;
     }
 }
