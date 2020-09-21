@@ -189,7 +189,6 @@
     });
     $('textarea.editor').ckeditor();
     $(document).ready(function () {
-        debugger
      
          CKEDITOR.instances["editor1"].setData($("#content-hidden").val());
         $('#btnCreatePost').click(function () {
@@ -219,7 +218,6 @@
         });
 
         $("#imgfile").change(function (event) {
-            debugger
             alert("A file has been selected.");
             $("#upldImage").css('background' ,'url()')
         });
@@ -240,7 +238,6 @@
             //    formData.append($(this).attr("name"), $(this).val());
 
             //});
-            debugger
             let file = $('#uploadfile')[0];
             formData.append("ProfileImage", file.files[0]);
             var data = JSON.stringify(objects);
@@ -320,7 +317,6 @@
     }
 
     var editPost = () => {
-        debugger
             var content = CKEDITOR.instances["editor1"].getData();
             var imageJSON ;
             var fileattach = "";

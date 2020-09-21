@@ -156,3 +156,13 @@ textarea {
 .footer-links > li > a{
     color:inherit;
 }
+
+@media screen and (max-width: 600px) {
+    .navbar-collapse {
+        display:none;
+    }
+
+    .main-image{
+        width:280px;
+    }
+}

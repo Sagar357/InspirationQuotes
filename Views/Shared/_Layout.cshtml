@@ -52,15 +52,26 @@
         <div class="container-fluid">
 
             <div class="navbar-header">
+                @*<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="collapseExample">
+                    Button with data-target
+                </button>*@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+                    button
                 </button>
-                
-            </div>
+                <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">LIFE MOTIVATION</a>
 
-            <div class="navbar-collapse collapse">
+            </div>
+            @*<div id="mobile-menu" class="collapse">
+                <ul>
+                    <li>Link1</li>
+                    <li>Link2</li>
+                    <li>Link3</li>
+                </ul>
+            </div>*@
+            <div   class="navbar-collapse">
 
                 <ul class="nav navbar-nav mr-auto headList">
                 </ul>
@@ -226,6 +237,14 @@
             $('#form-login').hide();
             $('#form-search').hide();
 
+            $('.btn').click(event => {
+                event.preventDefault();
+                if (event.currentTarget.attributes["data-toggle"].value == "collapse") {
+                    var target = event.currentTarget.attributes["data-target"].value;
+                    $(target).toggle("slow");
+                }
+            });
+
             $('#form-btnClose').click(function () {
                             $('#form-login').hide();
 
@@ -289,7 +308,7 @@
             var listHtml = `
                     <li>
                         @*@Html.ActionLink("EVERYDAY POWER", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-                        <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">LIFE MOTIVATION</a>
+                        @*<a href="@Url.Action("Index" ,"Home")" class="navbar-brand">LIFE MOTIVATION</a>*@
                     </li>`;
             var subhtml = "";
             $.each(data.list, function (index, element) {

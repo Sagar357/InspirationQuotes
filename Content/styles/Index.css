@@ -14,8 +14,14 @@
     font-size: 40px;
 }
 
+@media (max-device-width: 480px) and (orientation: landscape) {
+    .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+        max-height: 200px;
+        display: none;
+    }
+}
     .main-image {
-        width: 1500px;
+        width: 1000px;
         height: 400px;
     }
     .container-top > .row {
