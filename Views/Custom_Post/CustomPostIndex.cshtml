@@ -11,10 +11,11 @@
     string seoUrl = "";
     string categoryDesc = "";
     string fileattach = "";
-     if (Model.categoryList.Count > 0)
-     {
-     categoryDesc = Model.categoryList.FirstOrDefault(m=>!string.IsNullOrEmpty(m.categoryDesc.ToString())).ToString();
-     }
+    DateTime createddate = DateTime.UtcNow;
+    if (Model.categoryList.Count > 0)
+    {
+        categoryDesc = Model.categoryList.FirstOrDefault(m=>!string.IsNullOrEmpty(m.categoryDesc.ToString())).ToString();
+    }
     if (Model.list.Count>0)
     {
         ViewBag.Title = "Edit Post";
@@ -28,6 +29,10 @@
             image = model.postIconImage;
             seoUrl = model.seoUrl;
             fileattach = model.fileAttachmentCode;
+            if (!string.IsNullOrEmpty(model.createddate.ToString()))
+            {
+                createddate = model.createddate;
+            }
         }
         foreach( var ele in Model.categoryList)
         {
@@ -44,9 +49,11 @@
     <div class="container-fluid custom_post_main_div" style="padding-top:30px;">
         <div class="form-group col-md-3">
             <label>Post Title</label>
+            <input type="text" id="textcreateddate" name="createddate" placeholder="Date of creation...." class="form-control" value="@createddate" />
+
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle"  />
+                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" />
             }
             else
             {
@@ -58,22 +65,22 @@
 
             @if (ViewBag.Title == "Edit Post")
             {
-        <div class="category">
-            @foreach (string cat in category)
-            {
+                <div class="category">
+                    @foreach (string cat in category)
+                    {
 
-            <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@cat"  />
+                        <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@cat" />
 
-            }
-        </div>
+                    }
+                </div>
 
             }
             else
             {
 
-            <div class="category">
-                <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
-            </div>
+                <div class="category">
+                    <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
+                </div>
 
 
             }
@@ -81,7 +88,7 @@
             <label>Category Caption</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control"  value="@categoryDesc" />
+                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" value="@categoryDesc" />
 
             }
             else
@@ -92,7 +99,7 @@
             <label>Post Short Name</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down"  value="@shortName" class="form-control" />
+                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" value="@shortName" class="form-control" />
 
             }
             else
@@ -104,7 +111,7 @@
             <label>SEO Title</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle"  />
+                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" />
 
             }
             else
@@ -116,7 +123,7 @@
             <label>SEO Description</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control"  value="@seoDesc" />
+                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" value="@seoDesc" />
             }
             else
             {
@@ -128,7 +135,7 @@
             <label>SEO URL</label>
             @if (ViewBag.Title == "Edit Post")
             {
-                <input type="text" id="txtseourl" name="seourl" placeholder="Enter SEO URL" class="form-control" value="@seoUrl"  />
+                <input type="text" id="txtseourl" name="seourl" placeholder="Enter SEO URL" class="form-control" value="@seoUrl" />
 
             }
             else
@@ -189,7 +196,6 @@
     });
     $('textarea.editor').ckeditor();
     $(document).ready(function () {
-        debugger
      
          CKEDITOR.instances["editor1"].setData($("#content-hidden").val());
         $('#btnCreatePost').click(function () {
@@ -219,7 +225,6 @@
         });
 
         $("#imgfile").change(function (event) {
-            debugger
             alert("A file has been selected.");
             $("#upldImage").css('background' ,'url()')
         });
@@ -240,7 +245,6 @@
             //    formData.append($(this).attr("name"), $(this).val());
 
             //});
-            debugger
             let file = $('#uploadfile')[0];
             formData.append("ProfileImage", file.files[0]);
             var data = JSON.stringify(objects);
@@ -320,7 +324,6 @@
     }
 
     var editPost = () => {
-        debugger
             var content = CKEDITOR.instances["editor1"].getData();
             var imageJSON ;
             var fileattach = "";

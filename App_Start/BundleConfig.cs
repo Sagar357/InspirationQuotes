@@ -22,6 +22,9 @@ namespace EverydayPower
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/luxon").Include(
+                     "~/Scripts/luxon.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/proper").Include(
           "~/Scripts/propper.min.js"));
 
