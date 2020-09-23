@@ -12,6 +12,8 @@
     width: 100%;
     color: white;
     font-size: 40px;
+     margin-right: -15px; 
+     margin-left: -15px;
 }
 
 
@@ -35,7 +37,7 @@ p{
 
 
 /* Bottom left text */
-.bottom-left {
+    .bottom-left {
     position: absolute;
     bottom: 4em;
     left: 16px;
