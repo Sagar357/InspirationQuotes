@@ -28,11 +28,15 @@ namespace EverydayPower
             bundles.Add(new ScriptBundle("~/bundles/proper").Include(
           "~/Scripts/propper.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+         "~/Scripts/moment.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/styles/Custom-Post.css",
-                       "~/ckeditor/plugins/dialog/styles/dialog.css"));
+                       "~/ckeditor/plugins/dialog/styles/dialog.css",
+                       "~/Content/normailze.css"));
         }
     }
 }

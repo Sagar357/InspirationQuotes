@@ -151,11 +151,11 @@ p{
         padding-left: 15px;*/
 }
 
+
+
 @media only screen and (max-width: 600px) {
     .navbar-collapse {
         display: none;
-        color:white;
-        background-color:black;
     }
 
     .main-image {
@@ -176,6 +176,4 @@ p{
     .quotes{
         text-align:center;
     }
-
- 
 }

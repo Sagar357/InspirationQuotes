@@ -584,6 +584,7 @@
     <Content Include="Content\styles\content-style.css" />
     <Content Include="Content\styles\Custom-Post.css" />
     <Content Include="Content\styles\Index.css" />
+    <Content Include="Content\normalize.css" />
     <Content Include="packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x64\msvcr100.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -597,6 +598,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\luxon.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\propper.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

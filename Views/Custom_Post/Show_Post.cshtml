@@ -10,7 +10,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container-fluid">
+    <div class="container-fluid show-post">
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-8">
@@ -25,7 +25,7 @@
                         <div class="clearfix"></div>
 
                     }
-                    <h1 class="text-center" style="padding:10px; font-weight:600;">@m.postUrl</h1>
+                    <h1 class="text-center post-title" >@m.postUrl</h1>
                     @(new HtmlString(m.postContent))
                 }
 

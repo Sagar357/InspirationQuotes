@@ -11,7 +11,7 @@
     string seoUrl = "";
     string categoryDesc = "";
     string fileattach = "";
-    DateTime createddate = DateTime.UtcNow;
+    string createddate = DateTime.UtcNow.ToString("dd-MM-yyyy");
     if (Model.categoryList.Count > 0)
     {
         categoryDesc = Model.categoryList.FirstOrDefault(m=>!string.IsNullOrEmpty(m.categoryDesc.ToString())).ToString();
@@ -31,7 +31,7 @@
             fileattach = model.fileAttachmentCode;
             if (!string.IsNullOrEmpty(model.createddate.ToString()))
             {
-                createddate = model.createddate;
+                createddate = model.createddate.ToString("dd-MM-yyyy");
             }
         }
         foreach( var ele in Model.categoryList)
@@ -48,8 +48,10 @@
 <input type="hidden" id="content-hidden" value="@Content" />
     <div class="container-fluid custom_post_main_div" style="padding-top:30px;">
         <div class="form-group col-md-3">
-            <label>Post Title</label>
+            <label>Date of Creation</label>
             <input type="text" id="textcreateddate" name="createddate" placeholder="Date of creation...." class="form-control" value="@createddate" />
+
+            <label>Post Title</label>
 
             @if (ViewBag.Title == "Edit Post")
             {
