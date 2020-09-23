@@ -180,6 +180,14 @@ textarea {
     width:540px;
 }
 
+.show-post a {
+    color: #009de6;
+}
+
+.side-link a {
+    color: black;
+}
+
 @media only screen and (max-width: 600px) {
     #login-user {
         position:relative;

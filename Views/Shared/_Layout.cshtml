@@ -363,7 +363,8 @@
                         $('.dropdown-body').css("position" ,"absolute");
                         var listItem = '';
                         $.each(data.list, function (index, element) {
-                            listItem = listItem+ `<div onclick="location.href='/Quotes/`+element.seoUrl+`';" style="min-height:2em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
+                            
+                            listItem = listItem+ `<div onclick="location.href='/Quotes/`+element.category+`/`+element.seoUrl+`';" style="min-height:2em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
                                             `+ element.shortName + `
                                     </div>`;
                         });

@@ -57,7 +57,6 @@
                 processData: false,
                 async:true,
             success: function (data) {
-                
                     createHtmlLatestItem(data);
                 },
             error: function (error) {
@@ -80,10 +79,10 @@
 
  var createHtmlLatestItem = (obj) => {
         var data = obj.list;
-        var id = data[0].seoUrl;
-
+     var id = data[0].seoUrl;
+     var category_name = data[0].category;
         var html = `
-        <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/`+id+`';"  >
+        <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/`+category_name+`/`+id+`';"  >
             <img src='' class="main-image"  />
         </div>
         <div class=" col-md-12 main-text " style="  position:absolute; background:black; opacity:0.6;">
@@ -155,7 +154,8 @@
 
     var createMainSubContent = (cat ,data ,count) => {
         var id = data.seoUrl;
-        return `<div class="col-md-6 sub-container" style="margin-bottom:3em;"  onclick="location.href='/Quotes/`+id+`';">
+        debugger
+        return `<div class="col-md-6 sub-container" style="margin-bottom:3em;"  onclick="location.href='/Quotes/` + data.category + `/` + id +`';">
                 <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
                 <div class="bottom-left">
                     <p>
@@ -174,7 +174,7 @@ var createSubContent = (value, showCategory) => {
                     category=value.category
                 }
             
-              return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+id+`';">
+              return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
                 <img width="300" height="200" src="../../UploadImage/` + value.postIconImage + `" />
                 <div class="info">
                     <p>
