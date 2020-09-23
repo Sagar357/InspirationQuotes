@@ -20,14 +20,17 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/proper")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/ckeditor/ckeditor.js")
+    @Scripts.Render("~/bundles/adapter")
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
     @Styles.Render("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap")
     @Styles.Render("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap")
-    @Scripts.Render("https://code.jquery.com/jquery-3.5.1.min.js")
 
-    @Scripts.Render("~/ckeditor/ckeditor.js")
+    @*@Scripts.Render("~/ckeditor/ckeditor.js")*@
+    @*@Scripts.Render("~/bundles/adapter")*@
+
     @*<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">*@
 </head>
@@ -144,7 +147,7 @@
         @RenderBody()
     </div>
 
-    <footer class="text-center" style="height:28em;color:#606060; margin-top:150px;">
+    <footer class="text-center" >
         <div style="background-color:#181818;margin:0px;height:50%;padding-top:1em;">
             <div style="height:2em;font-size:30px;">
                 <span class="glyphicon glyphicon-log-in"></span>

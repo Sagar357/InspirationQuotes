@@ -9,7 +9,7 @@ namespace EverydayPower
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-3.4.1.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -30,6 +30,9 @@ namespace EverydayPower
 
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
          "~/Scripts/moment.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adapter").Include(
+       "~/Scripts/adapters.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

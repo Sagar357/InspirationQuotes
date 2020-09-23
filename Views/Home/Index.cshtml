@@ -105,7 +105,7 @@
         }
 
        
-     debugger
+  
      
      $.each(data, function (index, value) {
          
@@ -115,7 +115,6 @@
                 }
 
      });
-     debugger
      frameHtml = frameHtml + '</div>'
         for (var i = 0; i < category.length; i++) {
             frameHtml = frameHtml + `<div class="row quotes">
@@ -129,10 +128,10 @@
         </div>`;
             count = 0;
             var subhtml = '<div class="row">';
-            debugger
+        
             for (var j = 0; j < data.length; j++) {
                 if (data[j].category === category[i]) {
-           
+               debugger
                     if (count<2)
                         subhtml = subhtml + createMainSubContent(category[i], data[j]) + `</div>`;
                     else
@@ -142,25 +141,40 @@
                 }
 
             }
+        var noOfPages=obj.postCountList[i].noOfPosts/10;
             subhtml = subhtml + '</div>';
-      
+            //subhtml = subhtml + `  <nav aria-label="Page navigation example">
+            //            <ul class="pagination">`+
+            //    //<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">1</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">2</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">3</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">Next</a></li>
+            //    createPageItems(noOfPages);
+            //            +`</ul>
+            //        </nav>`;
             frameHtml = frameHtml + subhtml;
      }
      //$('.outbox').append(frameHtml);
      //$('.section-posts').append(frameHtml);
      $('.container').append(frameHtml);
 
+            }
+
+            var createPageItems = (noOfPages) => {
+                var html = '';
+                for (i = 0; i < noOfPages; i++) {
+                    html = html+'<li class="page-item"><a class="page-link" href="#">'+i+'</a></li>';
+                }
  }
 
     var createMainSubContent = (cat ,data ,count) => {
         var id = data.seoUrl;
         debugger
-        return `<div class="col-md-6 sub-container" style="margin-bottom:3em;"  onclick="location.href='/Quotes/` + data.category + `/` + id +`';">
+        return `<div class="col-md-6 sub-container"   onclick="location.href='/Quotes/` + data.category + `/` + id +`';">
                 <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
                 <div class="bottom-left">
-                    <p>
-                       
-                    </p>
+                    
                     <span>
                         `+ data.postUrl +`
                     </span>

@@ -598,6 +598,7 @@
     <Content Include="packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x86\SqlServerSpatial110.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\adapters.js" />
     <Content Include="Scripts\luxon.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\propper.min.js" />
