@@ -1,5 +1,6 @@
 ﻿@model EverydayPower.Models.Get_Post_List
 @{
+    @Scripts.Render("~/bundles/moment")
     Layout = "~/Views/Shared/_Layout.cshtml";
     string Content = "";
     string postTitle = "";
@@ -14,12 +15,12 @@
     string createddate = DateTime.UtcNow.ToString("dd-MM-yyyy");
     if (Model.categoryList.Count > 0)
     {
-        categoryDesc = Model.categoryList.FirstOrDefault(m=>!string.IsNullOrEmpty(m.categoryDesc.ToString())).ToString();
+        categoryDesc = Model.categoryList.FirstOrDefault(m => !string.IsNullOrEmpty(m.categoryDesc.ToString())).ToString();
     }
-    if (Model.list.Count>0)
+    if (Model.list.Count > 0)
     {
         ViewBag.Title = "Edit Post";
-        foreach(var model in Model.list)
+        foreach (var model in Model.list)
         {
             Content = model.postContent;
             postTitle = model.postUrl;
@@ -34,9 +35,9 @@
                 createddate = model.createddate.ToString("dd-MM-yyyy");
             }
         }
-        foreach( var ele in Model.categoryList)
+        foreach (var ele in Model.categoryList)
         {
-            category.Add( ele.categoryName);
+            category.Add(ele.categoryName);
         }
     }
     else
@@ -46,129 +47,137 @@
 }
 
 <input type="hidden" id="content-hidden" value="@Content" />
-    <div class="container-fluid custom_post_main_div" style="padding-top:30px;">
-        <div class="form-group col-md-3">
-            <label>Date of Creation</label>
-            <input type="text" id="textcreateddate" name="createddate" placeholder="Date of creation...." class="form-control" value="@createddate" />
-
-            <label>Post Title</label>
-
-            @if (ViewBag.Title == "Edit Post")
-            {
-                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" />
-            }
-            else
-            {
-                <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" />
-
-            }
-            <label>Post Category</label>
-            <span class="glyphicon glyphicon-plus-sign"></span>
-
-            @if (ViewBag.Title == "Edit Post")
-            {
-                <div class="category">
-                    @foreach (string cat in category)
-                    {
-
-                        <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@cat" />
-
-                    }
-                </div>
-
-            }
-            else
-            {
-
-                <div class="category">
-                    <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
-                </div>
+<div class="container-fluid custom_post_main_div" style="padding-top:30px;">
+    <div class="form-group col-md-3">
 
 
-            }
-
-            <label>Category Caption</label>
-            @if (ViewBag.Title == "Edit Post")
-            {
-                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" value="@categoryDesc" />
-
-            }
-            else
-            {
-                <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" />
-            }
-
-            <label>Post Short Name</label>
-            @if (ViewBag.Title == "Edit Post")
-            {
-                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" value="@shortName" class="form-control" />
-
-            }
-            else
-            {
-                <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" value="@shortName" class="form-control" />
-
-            }
-
-            <label>SEO Title</label>
-            @if (ViewBag.Title == "Edit Post")
-            {
-                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" />
-
-            }
-            else
-            {
-                <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" />
-
-            }
-
-            <label>SEO Description</label>
-            @if (ViewBag.Title == "Edit Post")
-            {
-                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" value="@seoDesc" />
-            }
-            else
-            {
-                <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" value="@seoDesc" />
-
-            }
 
 
-            <label>SEO URL</label>
-            @if (ViewBag.Title == "Edit Post")
-            {
-                <input type="text" id="txtseourl" name="seourl" placeholder="Enter SEO URL" class="form-control" value="@seoUrl" />
+        <label>Date of Creation</label>
+        <div class="input-group date" id="dp3" data-date="12-02-2015" data-datepicker-format="dd-mm-yyyy">
+            <input class="form-control" size="16" type="text" value="12-02-2015">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
+        @*<input type="text" name="createddate" placeholder="Date of creation...." class="form-control" id="date-picker" value="@createddate" />*@
 
-            }
-            else
-            {
-                <input type="text" id="txtseourl" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoUrl" />
+        <label>Post Title</label>
 
-            }
+        @if (ViewBag.Title == "Edit Post")
+        {
+            <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" />
+        }
+        else
+        {
+            <input type="text" id="txturl" name="url" placeholder="Enter Title of Post" class="form-control" value="@postTitle" />
+
+        }
+        <label>Post Category</label>
+        <span class="glyphicon glyphicon-plus-sign"></span>
+
+        @if (ViewBag.Title == "Edit Post")
+        {
+            <div class="category">
+                @foreach (string cat in category)
+                {
+
+                    <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" value="@cat" />
+
+                }
+            </div>
+
+        }
+        else
+        {
+
+            <div class="category">
+                <input type="text" id="txtcategory" name="category" placeholder="Enter Category of Post" class="form-control" />
+            </div>
+
+
+        }
+
+        <label>Category Caption</label>
+        @if (ViewBag.Title == "Edit Post")
+        {
+            <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" value="@categoryDesc" />
+
+        }
+        else
+        {
+            <input type="text" id="txtcategoryname" name="categorycaption" placeholder="Enter Category Text to be displayed in capton" class="form-control" />
+        }
+
+        <label>Post Short Name</label>
+        @if (ViewBag.Title == "Edit Post")
+        {
+            <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" value="@shortName" class="form-control" />
+
+        }
+        else
+        {
+            <input type="text" id="txtshortname" name="shortname" placeholder="Enter Short Name to be displayed in drop down" value="@shortName" class="form-control" />
+
+        }
+
+        <label>SEO Title</label>
+        @if (ViewBag.Title == "Edit Post")
+        {
+            <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" />
+
+        }
+        else
+        {
+            <input type="text" id="txtseotitle" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoTitle" />
+
+        }
+
+        <label>SEO Description</label>
+        @if (ViewBag.Title == "Edit Post")
+        {
+            <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" value="@seoDesc" />
+        }
+        else
+        {
+            <input type="text" id="txtseodesc" name="seodesc" placeholder="Enter SEO Description" class="form-control" value="@seoDesc" />
+
+        }
+
+
+        <label>SEO URL</label>
+        @if (ViewBag.Title == "Edit Post")
+        {
+            <input type="text" id="txtseourl" name="seourl" placeholder="Enter SEO URL" class="form-control" value="@seoUrl" />
+
+        }
+        else
+        {
+            <input type="text" id="txtseourl" name="seotitle" placeholder="Enter SEO Title" class="form-control" value="@seoUrl" />
+
+        }
+
+    </div>
+    @using (Html.BeginForm("FileUpload", "Custom_Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="form-group col-md-6">
+            <label>Icon Image</label>
+            <div id="upldImagePreview" fileattachmentcode="@fileattach">
+                <img src="~/UploadImage/@image" style="height:150px; width:250px;" />
+            </div>
+            <div>
+                @Html.TextBox("file", "", new { @type = "file", @class = "form-control", @id = "uploadfile" })
+            </div>
+            @*<input type="file" id="imgfile" name="image" placeholder="Upload an Image" class="form-control" />*@
+            <input type="button" id="btnupload" name="upload" value="Upload" class="form-control btn btn-primary" />
 
         </div>
-            @using (Html.BeginForm("FileUpload", "Custom_Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
 
-                <div class="form-group col-md-6">
-                    <label>Icon Image</label>
-                    <div id="upldImagePreview" fileattachmentcode="@fileattach">
-                        <img src="~/UploadImage/@image" style="height:150px; width:250px;"  />
-                    </div>
-                    <div>
-                        @Html.TextBox("file", "", new { @type = "file", @class = "form-control", @id = "uploadfile" })
-                    </div>
-                    @*<input type="file" id="imgfile" name="image" placeholder="Upload an Image" class="form-control" />*@
-                    <input type="button" id="btnupload" name="upload" value="Upload" class="form-control btn btn-primary" />
-
-                </div>
-
-            }
-        </div>
+    }
+</div>
 
 <textarea class="editor"></textarea>
 
-<input type="button" id="btnCreatePost" class="btn btn-success" value="Create Post" style="margin-top:20px;height:40px; width:200px;"  />
+<input type="button" id="btnCreatePost" class="btn btn-success" value="Create Post" style="margin-top:20px;height:40px; width:200px;" />
 
 <p class="preview-head">
     <span>
@@ -198,13 +207,24 @@
     });
     $('textarea.editor').ckeditor();
     $(document).ready(function () {
-     
+
+        //$(function () {        
+        //$('#date-picker').datetimepicker({
+        //    format:'dd-MM-yyyy'
+        //});
+
+        //});
+
+        $('#date-picker').datepicker({
+            format:'dd-MM-yyyy'
+        });
+
          CKEDITOR.instances["editor1"].setData($("#content-hidden").val());
         $('#btnCreatePost').click(function () {
             var content = CKEDITOR.instances["editor1"].getData();
             $('.container-content').empty();
             if (content != "") {
-               
+
                 $('.container-content').css('color', 'black');
                 $('.container-content').html(content);
                 $('#btnSave').removeAttr('disabled');
@@ -264,7 +284,7 @@
                     $("#upldImagePreview>img").attr("src", "../../UploadImage/" + data.imageName + "");
                     $("#upldImagePreview>img").attr("height", "200");
                     $("#upldImagePreview>img").attr("width", "250");
-                    
+
                     $("#upldImagePreview").css("margin-bottom", "20px");
                     $("#upldImagePreview").attr('value', JSON.stringify( data ));
                 },

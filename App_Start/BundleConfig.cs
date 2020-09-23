@@ -36,7 +36,8 @@ namespace EverydayPower
                       "~/Content/site.css",
                       "~/Content/styles/Custom-Post.css",
                        "~/ckeditor/plugins/dialog/styles/dialog.css",
-                       "~/Content/normailze.css"));
+                       "~/Content/normailze.css",
+                       "~/Content/bootstrap-datepicker.css"));
         }
     }
 }
