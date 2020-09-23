@@ -9,7 +9,7 @@ namespace EverydayPower
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-3.4.1.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -22,14 +22,25 @@ namespace EverydayPower
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/luxon").Include(
+                     "~/Scripts/luxon.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/proper").Include(
           "~/Scripts/propper.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+         "~/Scripts/moment.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adapter").Include(
+       "~/Scripts/adapters.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/styles/Custom-Post.css",
-                       "~/ckeditor/plugins/dialog/styles/dialog.css"));
+                       "~/ckeditor/plugins/dialog/styles/dialog.css",
+                       "~/Content/normailze.css",
+                       "~/Content/bootstrap-datepicker.css"));
         }
     }
 }

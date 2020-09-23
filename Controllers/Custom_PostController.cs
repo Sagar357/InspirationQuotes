@@ -73,8 +73,8 @@ namespace EverydayPower.Controllers
        
 
         // GET: Custom_Post/Details/5
-        [Route("Quotes/{id}")]
-        public ActionResult Show_Post(string id)
+        [Route("Quotes/{categoryid}/{id}")]
+        public ActionResult Show_Post(string categoryid ,string id)
         {
             Services.Post_Service services = new Services.Post_Service();
             Get_Post_List list = services.PostGetContent(id);

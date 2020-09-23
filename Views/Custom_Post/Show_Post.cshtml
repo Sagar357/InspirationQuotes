@@ -10,7 +10,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container-fluid">
+    <div class="container-fluid show-post">
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-8">
@@ -25,20 +25,22 @@
                         <div class="clearfix"></div>
 
                     }
-                    <h1 class="text-center" style="padding:10px; font-weight:600;">@m.postUrl</h1>
+                    <h1 class="text-center post-title">@m.postUrl</h1>
                     @(new HtmlString(m.postContent))
+
+                  
                 }
 
             </div>
                 <div class="col-md-3">
-                    <div class="row">
-                        <div class="col-md-3 line"></div>
-                        <div class="col-md-5 box text-center">
+                    <div class="row quotes">
+                        <div class="col-md-2 line"></div>
+                        <div class="col-md-7 box text-center">
                             <span>
                                 Latest Articles
                             </span>
                         </div>
-                        <div class="col-md-3 line"></div>
+                        <div class="col-md-2 line"></div>
                     </div>
                     <ul class="side-link">
                     </ul>
@@ -51,7 +53,7 @@
 <script>
     $(document).ready(function () {
                 $.ajax({
-                url: '/side-links/0/10',
+                url: '/side-links/0/6',
                 method: 'get',
                 contentType: "application/json",
                 dataType:"json",
@@ -62,9 +64,9 @@
                     $('.side-link').empty();
                     var listHtml = '';
                     $.each(data.list, (index, element) => {
-                         debugger
+                        debugger
                         listHtml = listHtml + ` <li>
-                            <a href="\\Quotes\\`+element.seoUrl+`">`+element.postUrl+`</a>
+                            <a href="\\Quotes\\`+ element.category + `\\` + element.seoUrl + `">` + element.postUrl +`</a>
                         </li>`;
                     });
 
@@ -76,4 +78,3 @@
             });
     });
 </script>
-

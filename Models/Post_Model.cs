@@ -24,6 +24,7 @@ namespace EverydayPower.Models
         public string categoryName { get; set; }
         public string category { get; set; }
         public List<Category_Model> categoryList { get; set; }
+        public DateTime createddate { get; set; }
 
     }
 

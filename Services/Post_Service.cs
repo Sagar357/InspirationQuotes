@@ -363,6 +363,14 @@ namespace EverydayPower.Services
                             {
                                 obj.shortName = "";
                             }
+                            if (!string.IsNullOrEmpty(dr["category_name"].ToString()))
+                            {
+                                obj.category = dr["category_name"].ToString();
+                            }
+                            else
+                            {
+                                obj.category = "";
+                            }
 
                             list.list.Add(obj);
                         }
@@ -871,6 +879,14 @@ namespace EverydayPower.Services
                             else
                             {
                                 obj.seoUrl = "";
+                            }
+                            if (!string.IsNullOrEmpty(dr["category_name"].ToString()))
+                            {
+                                obj.category = dr["category_name"].ToString();
+                            }
+                            else
+                            {
+                                obj.category = "";
                             }
                             list.list.Add(obj);
                         }

@@ -57,7 +57,6 @@
                 processData: false,
                 async:true,
             success: function (data) {
-                
                     createHtmlLatestItem(data);
                 },
             error: function (error) {
@@ -80,10 +79,10 @@
 
  var createHtmlLatestItem = (obj) => {
         var data = obj.list;
-        var id = data[0].seoUrl;
-
+     var id = data[0].seoUrl;
+     var category_name = data[0].category;
         var html = `
-        <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/`+id+`';"  >
+        <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/`+category_name+`/`+id+`';"  >
             <img src='' class="main-image"  />
         </div>
         <div class=" col-md-12 main-text " style="  position:absolute; background:black; opacity:0.6;">
@@ -106,7 +105,7 @@
         }
 
        
-     debugger
+  
      
      $.each(data, function (index, value) {
          
@@ -116,10 +115,9 @@
                 }
 
      });
-     debugger
      frameHtml = frameHtml + '</div>'
         for (var i = 0; i < category.length; i++) {
-            frameHtml = frameHtml + `<div class="row">
+            frameHtml = frameHtml + `<div class="row quotes">
             <div class="col-md-4 line"></div>
             <div class="col-md-4 box text-center">
                 <span>
@@ -130,10 +128,10 @@
         </div>`;
             count = 0;
             var subhtml = '<div class="row">';
-            debugger
+        
             for (var j = 0; j < data.length; j++) {
                 if (data[j].category === category[i]) {
-           
+               debugger
                     if (count<2)
                         subhtml = subhtml + createMainSubContent(category[i], data[j]) + `</div>`;
                     else
@@ -143,24 +141,40 @@
                 }
 
             }
+        var noOfPages=obj.postCountList[i].noOfPosts/10;
             subhtml = subhtml + '</div>';
-      
+            //subhtml = subhtml + `  <nav aria-label="Page navigation example">
+            //            <ul class="pagination">`+
+            //    //<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">1</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">2</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">3</a></li>
+            //    //<li class="page-item"><a class="page-link" href="#">Next</a></li>
+            //    createPageItems(noOfPages);
+            //            +`</ul>
+            //        </nav>`;
             frameHtml = frameHtml + subhtml;
      }
      //$('.outbox').append(frameHtml);
      //$('.section-posts').append(frameHtml);
      $('.container').append(frameHtml);
 
+            }
+
+            var createPageItems = (noOfPages) => {
+                var html = '';
+                for (i = 0; i < noOfPages; i++) {
+                    html = html+'<li class="page-item"><a class="page-link" href="#">'+i+'</a></li>';
+                }
  }
 
     var createMainSubContent = (cat ,data ,count) => {
         var id = data.seoUrl;
-        return `<div class="col-md-6 sub-container" style="margin-bottom:3em;"  onclick="location.href='/Quotes/`+id+`';">
+        debugger
+        return `<div class="col-md-6 sub-container"   onclick="location.href='/Quotes/` + data.category + `/` + id +`';">
                 <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
                 <div class="bottom-left">
-                    <p>
-                       
-                    </p>
+                    
                     <span>
                         `+ data.postUrl +`
                     </span>
@@ -174,7 +188,7 @@ var createSubContent = (value, showCategory) => {
                     category=value.category
                 }
             
-              return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+id+`';">
+              return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
                 <img width="300" height="200" src="../../UploadImage/` + value.postIconImage + `" />
                 <div class="info">
                     <p>
