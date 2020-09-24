@@ -57,7 +57,9 @@
                 processData: false,
                 async:true,
             success: function (data) {
-                    createHtmlLatestItem(data);
+                createHtmlLatestItem(data);
+                $('.pageloader').addClass('hide');
+                $('.company-div').addClass('navbar-fixed-top');
                 },
             error: function (error) {
                 console.log(error);
@@ -96,7 +98,7 @@
 `;
         $('.container-top').append(html);
         $('.container-top img').attr('src', '../../UploadImage/' + data[0].postIconImage +  '');
-        var frameHtml = '<div class="row">';
+        var frameHtml = '<div class="row cust">';
         var count = 0;
      $('.container').empty();
         var category = [];
@@ -127,7 +129,7 @@
             <div class="col-md-4 line"></div>
         </div>`;
             count = 0;
-            var subhtml = '<div class="row">';
+            var subhtml = '<div class="row cust">';
         
             for (var j = 0; j < data.length; j++) {
                 if (data[j].category === category[i]) {
@@ -171,7 +173,7 @@
     var createMainSubContent = (cat ,data ,count) => {
         var id = data.seoUrl;
         debugger
-        return `<div class="col-md-6 sub-container"   onclick="location.href='/Quotes/` + data.category + `/` + id +`';">
+        return `<div class="cust-col-6 col-md-6 sub-container"   onclick="location.href='/Quotes/` + data.category + `/` + id +`';">
                 <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
                 <div class="bottom-left">
                     
@@ -186,20 +188,28 @@ var createSubContent = (value, showCategory) => {
                 var category = '';
                 if (showCategory == true) {
                     category=value.category
-                }
-            
-              return `<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
-                <img width="300" height="200" src="../../UploadImage/` + value.postIconImage + `" />
-                <div class="info">
-                    <p>
-                        `+ category.toUpperCase() +`
-                    </p>
-                    <span>
-                        `+ value.postUrl +`
-                    </span>
-                </div>
-            </div>
+    }
+    //var html=`<div class="col-md-3 sub-container"  onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
+    //            <img width="300" height="200" src="../../UploadImage/` + value.postIconImage + `" />
+    //            <div class="info">
+    //                <p>
+    //                    `+ category.toUpperCase() +`
+    //                </p>
+    //                <span>
+    //                    `+ value.postUrl +`
+    //                </span>
+    //            </div>
+    //        </div>
 
-           `;
+    //       `;
+
+    var html = `<div class="card col-md-3 text-center sub-container cust-col-3" style="padding:0px;"  onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
+  <img class="card-img-top" width="291" height="200" src="../../UploadImage/` + value.postIconImage + `">
+  <div class="card-body info">
+    <p class="card-title">`+ category.toUpperCase() +`</p>
+    <span class="card-text">`+ value.postUrl +`</span>
+  </div>
+</div>`;
+    return html;
     }
         </script>

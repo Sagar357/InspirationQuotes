@@ -636,7 +636,9 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="UploadImage\imagePost.jpg" />
+    <Content Include="UploadImage\logo.jpeg" />
     <Content Include="UploadImage\no-image.jpg" />
+    <Content Include="UploadImage\pageload.gif" />
     <Content Include="Views\FAQ\FAQ.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

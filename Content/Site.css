@@ -1,8 +1,70 @@
 ﻿body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
     font-size:16px;
 }
+
+.pageloader{
+    background-color:white;
+    position:absolute;
+    height:100%;
+    width:100%;
+    z-index:2000;
+    overflow:hidden;
+}
+
+
+.loading,
+.loading:before {
+    border: solid 8px rgba(34, 153, 204, .5);
+    border-radius: 10px;
+    display: inline-block;
+    height: 70px;
+    width: 70px;
+    -webkit-animation-duration: 1.1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.loading {
+    margin: 15px;
+    position: absolute;
+    z-index:2000;
+    -webkit-animation-name: animation;
+    top:48%;
+    left:45%;
+    background-color:white;
+}
+
+    .loading:before {
+        content: '';
+        display: block;
+        left: -8px;
+        position: absolute;
+        top: -8px;
+        -webkit-animation-name: animationreverse;
+    }
+
+@-webkit-keyframes animation {
+    0%, 60% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(90deg);
+    }
+}
+
+@-webkit-keyframes animationreverse {
+    0%, 60% {
+        -webkit-transform: rotate(180deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(0deg);
+    }
+}
+/* Custom code for the demo */
 
 a{
     text-decoration:none;
@@ -47,6 +109,14 @@ textarea {
     background-color:white;
 }
 
+.company-div .navbar-brand{
+    padding:0px;
+}
+
+.company-logo{
+    height:58px;
+}
+
 .menu-icon-hidden{
     display:inline-block;
     width:2em;
@@ -58,6 +128,33 @@ textarea {
 .menu-icon-hidden:hover {
     color: #80ffe5;
 }
+
+ .dropdown-body{
+    max-height:700%;
+    overflow:scroll;
+}
+
+.dropdown-body div{
+    cursor:pointer;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 
 .dropdown-body>div {
     min-height: 2em;
@@ -247,6 +344,7 @@ footer {
         .navbar-center {
             display: block;
             width: auto;
+            margin-bottom:0px;
         }
 
         .sub-container {
@@ -263,5 +361,23 @@ footer {
             min-height: 1px;
              padding-right: 15px; 
             padding-left: 15px;
+        }
+
+        .loading {
+            margin: 15px;
+            position: absolute;
+            z-index: 2000;
+            -webkit-animation-name: animation;
+            top: 48%;
+            left: 35%;
+            background-color: black;
+        }
+
+        .cust-col-6 {
+            width: 50% !important;
+        }
+
+        .cust-col-3 {
+            width: 25% !important;
         }
     }

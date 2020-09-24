@@ -12,7 +12,7 @@
     width: 100%;
     color: white;
     font-size: 40px;
-
+    cursor:pointer;
 }
 
     .container-top::after ,.container-top::before {
@@ -47,36 +47,64 @@ p{
 /* Bottom left text */
 .bottom-left {
     position: absolute;
-    bottom: 4em;
+    bottom: 1em;
     background-color:black;
-    opacity:0.6;
+    opacity:0.8;
+    color:white;
+    padding-left:5px;
 }
 
 
 
-    .sub-container {
-    height: 300px;
+.sub-container {
+    /*height: 300px;
     padding: 0px;
     border: 1px solid white;
     position: relative;
     text-align: center;
-    color: white;
-    margin-bottom:9em;
+    color: white;*/
+    /*-webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);*/
+    margin-bottom: 10px;
+    padding:0px !important;
+    margin-top:2em;
 }
-.sub-container>img{
-    height:250px;
-    width:100%;
-    vertical-align:auto;
+
+.cust{
+    margin-left:8% !important;
+    cursor:pointer;
 }
-.info > p {
+
+.cust .col-md-3 {
+    margin-right: 17px;
+    width: 22% ;
+}
+
+.cust .col-md-6 {
+    width: 45%;
+    margin-right: 25px;
+}
+    .sub-container > img {
+        height: 250px;
+        width: 100%;
+        vertical-align: auto;
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);
+    box-shadow: 0px 0px 12px 5px rgba(0,0,0,0.31);
+    }
+.info>p {
     font-size: 20px;
     color: #009de6;
     margin-top: 0.5em;
     padding-bottom: 0.2em;
+    font-weight:800;
 }
 .info>span{
     font-size:20px;
     color:black;
+    padding:10px;
+    font-weight:600;
 }
 
 .container{
@@ -176,5 +204,13 @@ p{
 
     .quotes{
         text-align:center;
+    }
+
+    .cust .col-md-6 {
+        width: 100% !important;
+    }
+
+    .cust .col-md-3 {
+        width: 100% !important;
     }
 }

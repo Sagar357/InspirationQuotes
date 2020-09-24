@@ -35,8 +35,10 @@
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">*@
 </head>
 <body>
-
-    <!--Side Menu Pannel Start-->
+    @*<img src="~/UploadImage/pageload.gif" class="pageload"/>*@
+    <div class="pageloader">
+        <div class="loading"></div>
+    </div>    <!--Side Menu Pannel Start-->
 
     <div class="side-menubar hidden-ele">
         <div style="font-size:20px; width:80%;margin-top:1.5em;display:inline-block;" class="text-center">
@@ -51,10 +53,12 @@
     <!--Side Menu Pannel End-->
 
 
-    <div class="navbar company-div navbar-fixed-top">
+    <div class="navbar company-div">
         <div>
            
-                <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">LIFE MOTIVATION</a>
+                <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">
+                    <img src="~/UploadImage/logo.jpeg" class="company-logo" />
+                </a>
 
          
 
@@ -320,7 +324,7 @@
 
                     arr[count] = element.categoryId;
                     count++;
-                    subhtml = subhtml + `<li>
+                    subhtml = subhtml + `<li class="scroll">
                         <a href="@Url.Action("Index" ,"Home")" class="dropdown-heading" value="`+ element.categoryId + `" id = "dropdown-heading_` + element.categoryName.replace(' ', '-') + `">` + element.categoryName.toUpperCase() + `</a>
                         <div class="dropdown-body">
                         </div>
