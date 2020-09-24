@@ -55,12 +55,12 @@
 
     <div class="navbar company-div">
         <div>
-           
-                <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">
-                    <img src="~/UploadImage/logo.jpeg" class="company-logo" />
-                </a>
 
-         
+            <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">
+                <img src="~/UploadImage/logo.jpeg" class="company-logo" />
+            </a>
+
+
 
             <div class="navbar-header">
 
@@ -68,7 +68,7 @@
                     @*<span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>*@
-                   <i class="glyphicon glyphicon-menu-hamburger"></i>
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
                 </button>
 
             </div>
@@ -79,10 +79,21 @@
                 </ul>
 
                 <div style="float:right; padding-top:20px; font-size:25px;">
-                    <a href="#" class="glyphicon glyphicon-user" alt="Login As Admin"  id="login-user"></a>
+                    <a href="#" class="glyphicon glyphicon-user" alt="Login As Admin" id="login-user"></a>
 
-                    <span id="icon-search" class="glyphicon glyphicon-search"></span>
+                    <a href="#" id="icon-search" style="margin-left:40px; padding:0px;" class="glyphicon glyphicon-search"></a>
                 </div>
+                @*<form id="form-search">
+                <div style="float:right; padding-right:100px; padding-top:10px; font-size:25px; ">
+                    <input type="button" class="btn btn-primary custom_btns" value="Search" id="btnSearch" />
+                </div>
+                <div style="float:right; padding-right:100px; padding-top:10px; width: 50%; font-size:25px; height:55px;">
+                    <input type="text" id="txtSearchBox" class="form-control" placeholder="Search....." style=" height:45px;" />
+                </div>
+            </form>*@
+
+            </div>
+            <div class="search-div">
                 <form id="form-search">
                     <div style="float:right; padding-right:100px; padding-top:10px; font-size:25px; ">
                         <input type="button" class="btn btn-primary custom_btns" value="Search" id="btnSearch" />
@@ -91,7 +102,6 @@
                         <input type="text" id="txtSearchBox" class="form-control" placeholder="Search....." style=" height:45px;" />
                     </div>
                 </form>
-
             </div>
             @if (ViewBag.Login == "valid")
             {
@@ -240,7 +250,7 @@
     <script>
         $(document).ready(() => {
             $('#form-login').hide();
-            $('#form-search').hide();
+            $('.search-div').hide();
 
             $('.navbar-toggle').click(event => {
                 event.preventDefault();
@@ -300,7 +310,7 @@
                 $(event.currentTarget.parentElement).hide();
             });
             $("#icon-search").click(event => {
-                $("#form-search").toggle("slow");
+                $(".search-div").toggle("1000");
             });
             $(".menu-icon-hidden").click(function () {
                 $(".side-menubar").show();

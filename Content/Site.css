@@ -263,6 +263,7 @@ textarea {
 #login-user {
     position: absolute;
     top: 20px;
+  
 }
 
 #icon-search {
@@ -311,6 +312,10 @@ footer {
 
     padding-right:0px;
 
+}
+
+.search-div, #form-login {
+    z-index: 2000;
 }
     @media only screen and (max-width: 600px) {
         #login-user {
