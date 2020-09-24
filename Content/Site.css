@@ -136,6 +136,7 @@ textarea {
 
 .dropdown-body div{
     cursor:pointer;
+    z-index:2000;
 }
 ::-webkit-scrollbar {
     width: 5px;
