@@ -280,12 +280,12 @@ textarea {
      padding-left: 15px; 
 }
 
-.navbar-center{
-    display:inline-block;
-    width:540px;
-    margin-bottom:0px;
-
-.show-post a {
+.navbar-center {
+    display: inline-block;
+    width: 540px;
+    margin-bottom: 0px;
+}
+.show-post a{
     color: #009de6;
 }
 
