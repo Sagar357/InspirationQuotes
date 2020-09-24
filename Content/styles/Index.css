@@ -45,7 +45,7 @@ p{
 
 
 /* Bottom left text */
-.bottom-left {
+    .bottom-left {
     position: absolute;
     bottom: 1em;
     background-color:black;
