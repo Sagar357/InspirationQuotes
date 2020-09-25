@@ -21,8 +21,8 @@
     });
 }
 
-    $(document).ready(function () {
-
+            $(document).ready(function () {
+               
         $('#btnSearch').click(function () {
        
             $('.container-top').empty();
@@ -40,7 +40,7 @@
                 processData: false,
                 async: false,
                 success: function (data) {
-                    createHtmlLatestItem(data.list);
+                    createHtmlLatestItem(data);
                 },
                 error: function (error) {
 
@@ -68,11 +68,8 @@
 
         $('.carousel').carousel();
       
-         $('#175Beauty').click(function () {
+        
 
-            var link = '@Url.Action("Index", "Custom_Post")';
-            window.location.assign(link);
-            });
     });
 
             var handleClick = () => {
@@ -134,10 +131,22 @@
             for (var j = 0; j < data.length; j++) {
                 if (data[j].category === category[i]) {
                debugger
-                    if (count<2)
+                    if (count < 2) {
                         subhtml = subhtml + createMainSubContent(category[i], data[j]) + `</div>`;
+                    }
+                    else if (count % 4 === 2) {
+                        if (count === 9) {
+
+                            subhtml = subhtml + `<div class="clearfix"></div></div>`;
+                        }
+                        else {
+                            subhtml = subhtml + `</div> <div class="row cust">`;
+                            subhtml = subhtml + createSubContent(data[j]);
+                        }
+                       
+                    }
                     else
-                        subhtml = subhtml + createSubContent(data[j]) ;
+                        subhtml = subhtml + createSubContent(data[j]);
                         count++;
 
                 }
@@ -203,13 +212,23 @@ var createSubContent = (value, showCategory) => {
 
     //       `;
 
-    var html = `<div class="card col-md-3 text-center sub-container cust-col-3" style="padding:0px;"  onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
-  <img class="card-img-top" width="291" height="200" src="../../UploadImage/` + value.postIconImage + `">
-  <div class="card-body info">
+    var html = `<div class="card col-md-3 text-center sub-container cust-col-3" style="padding:0px;" >
+  <img class="card-img-top" width="291" height="200" src="../../UploadImage/` + value.postIconImage + `" onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
+  <div class="card-body info" id='card-`+id+`' onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
     <p class="card-title">`+ category.toUpperCase() +`</p>
-    <span class="card-text">`+ value.postUrl +`</span>
+    <span class="card-text">`+ value.postUrl +`<div id="card-text-end" style="display:block;"></div></span>
   </div>
+<div style="border: 1px solid lightgrey; border-top:none;" onclick="scrollDiv(event)" target='#card-`+ id +`' >
+<a class="glyphicon glyphicon-chevron-down" href="#card-text-end"  >
+</a>
+</div>
 </div>`;
     return html;
-    }
+            }
+
+            $(document).ready(function(){
+  // Add smooth scrolling to all links
+            
+            });
+
         </script>

@@ -249,6 +249,7 @@
 
     <script>
         $(document).ready(() => {
+
             $('#form-login').hide();
             $('.search-div').hide();
 
@@ -270,6 +271,7 @@
                             $('#form-login').show();
             });
 
+           
 
              $.ajax({
                 url: '/Custom_Post/GetCategoryList',
@@ -395,6 +397,28 @@
             });
             }
         }
+
+var scrollDiv = (event) => {
+                debugger
+                      event.preventDefault();
+    // Make sure this.hash has a value before overriding default behavior
+    if (event.currentTarget.children[0].hash !== "") {
+      // Prevent default anchor click behavior
+
+      // Store hash
+      var hash = event.currentTarget.children[0].hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $(event.currentTarget.attributes.target.value).animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+            }
     </script>
     <style>
         input {

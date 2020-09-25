@@ -131,7 +131,7 @@ textarea {
 
  .dropdown-body{
     max-height:700%;
-    overflow:scroll;
+    overflow:auto;
 }
 
 .dropdown-body div{

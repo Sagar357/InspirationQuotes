@@ -162,8 +162,8 @@ namespace EverydayPower.Controllers
             return RedirectToAction("Index", "Home" );
         }
 
-        [Route("Quotes/Edit/{id}")]
-        public ActionResult Edit(string id) 
+        [Route("Edit/{categoryid}/{id}")]
+        public ActionResult Edit(string categoryid ,string id) 
         {
             try
             {

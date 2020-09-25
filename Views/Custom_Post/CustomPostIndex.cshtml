@@ -214,11 +214,9 @@
         //});
 
         //});
+         $('.pageloader').addClass('hide');
 
-        $('#date-picker').datepicker({
-            format:'dd-MM-yyyy'
-        });
-
+       
          CKEDITOR.instances["editor1"].setData($("#content-hidden").val());
         $('#btnCreatePost').click(function () {
             var content = CKEDITOR.instances["editor1"].getData();

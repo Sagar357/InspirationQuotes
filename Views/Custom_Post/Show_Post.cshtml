@@ -21,7 +21,7 @@
                     if (!string.IsNullOrEmpty(ViewBag.User))
                     {
                         <input type="button" id="btnDelete" name="DeletePost" value="Delete" class="custom_btns" style="height:50px; width:130px; font-weight:900; background-color:forestgreen; color:white; border:none;float:right; margin-left:10px; margin-bottom:20px;" onclick="location.href='Delete/@m.seoUrl'" />
-                        <input type="button" id="btnEdit" name="EditPost" value="Edit" class="custom_btns" style="height:50px; width:130px; font-weight:900; background-color:forestgreen; color:white; border:none; float:right; margin-left:10px; margin-bottom:20px;" onclick="location.href='Edit/@m.seoUrl'" />
+                        <input type="button" id="btnEdit" name="EditPost" value="Edit" class="custom_btns" style="height:50px; width:130px; font-weight:900; background-color:forestgreen; color:white; border:none; float:right; margin-left:10px; margin-bottom:20px;" onclick="location.href='@Url.Action("Edit" ,"Custom_Post")'" />
                         <div class="clearfix"></div>
 
                     }
