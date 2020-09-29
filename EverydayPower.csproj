@@ -657,6 +657,7 @@
     <Content Include="Views\whenyoufeellikegivingup\whenyoufeellikegivingup.cshtml" />
     <Content Include="Views\Custom_Post\CustomPostIndex.cshtml" />
     <Content Include="Views\Custom_Post\Show_Post.cshtml" />
+    <Content Include="Views\Custom_Post\ViewCategoryItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

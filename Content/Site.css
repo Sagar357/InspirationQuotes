@@ -138,6 +138,10 @@ textarea {
     cursor:pointer;
     z-index:2000;
 }
+
+    .dropdown-body div:hover {
+        color: #009de6;
+    }
 ::-webkit-scrollbar {
     width: 5px;
 }

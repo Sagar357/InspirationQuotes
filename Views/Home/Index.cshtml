@@ -108,8 +108,9 @@
      
      $.each(data, function (index, value) {
          
-            if ( count < 4) {
-                frameHtml = frameHtml + createSubContent(value ,true)
+         if (count < 4) {
+             var cardId = `card-latest-` + count ;
+                frameHtml = frameHtml + createSubContent(value ,true ,cardId)
                 count++;
                 }
 
@@ -130,7 +131,7 @@
         
             for (var j = 0; j < data.length; j++) {
                 if (data[j].category === category[i]) {
-               debugger
+                    var cardId = `card-` + category[i] + `-` + count;
                     if (count < 2) {
                         subhtml = subhtml + createMainSubContent(category[i], data[j]) + `</div>`;
                     }
@@ -141,12 +142,12 @@
                         }
                         else {
                             subhtml = subhtml + `</div> <div class="row cust">`;
-                            subhtml = subhtml + createSubContent(data[j]);
+                            subhtml = subhtml + createSubContent(data[j] ,false ,cardId);
                         }
                        
                     }
                     else
-                        subhtml = subhtml + createSubContent(data[j]);
+                        subhtml = subhtml + createSubContent(data[j] ,false ,cardId);
                         count++;
 
                 }
@@ -181,7 +182,6 @@
 
     var createMainSubContent = (cat ,data ,count) => {
         var id = data.seoUrl;
-        debugger
         return `<div class="cust-col-6 col-md-6 sub-container"   onclick="location.href='/Quotes/` + data.category + `/` + id +`';">
                 <img src="../../UploadImage/`+ data.postIconImage +`" class="img-fluid" id="175Beauty" />
                 <div class="bottom-left">
@@ -191,7 +191,7 @@
                     </span>
                 </div>`;
     }
-var createSubContent = (value, showCategory) => {
+var createSubContent = (value, showCategory ,containerid) => {
                 
                 var id = value.seoUrl;
                 var category = '';
@@ -211,14 +211,14 @@ var createSubContent = (value, showCategory) => {
     //        </div>
 
     //       `;
-
+    debugger
     var html = `<div class="card col-md-3 text-center sub-container cust-col-3" style="padding:0px;" >
-  <img class="card-img-top" width="291" height="200" src="../../UploadImage/` + value.postIconImage + `" onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
-  <div class="card-body info" id='card-`+id+`' onclick="location.href='/Quotes/`+value.category+`/`+id+`';">
+  <img class="card-img-top" width="291" height="200" src="../../UploadImage/` + value.postIconImage + `" onclick="location.href='/Quotes/` + value.category + `/` + id + `';">
+  <div class="card-body info" id=`+ containerid + ` onclick="location.href='/Quotes/` + value.category + `/` + id +`';">
     <p class="card-title">`+ category.toUpperCase() +`</p>
     <span class="card-text">`+ value.postUrl +`<div id="card-text-end" style="display:block;"></div></span>
   </div>
-<div style="border: 1px solid lightgrey; border-top:none;" onclick="scrollDiv(event)" target='#card-`+ id +`' >
+<div style="border: 1px solid lightgrey; border-top:none;" onclick="scrollDiv(event)" target="#`+ containerid +`" >
 <a class="glyphicon glyphicon-chevron-down" href="#card-text-end"  >
 </a>
 </div>
