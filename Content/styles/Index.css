@@ -27,7 +27,7 @@
 
     .main-image {
         width: 100%;
-        height: 400px;
+        height: auto;
     }
     .container-top > .row {
         padding: 0px;
@@ -109,7 +109,8 @@ p{
 
 .container{
     margin-top:9em;
-    margin-right:1em;
+    margin-right:0px;
+    padding-left:0px;
 }
 
 .line{
@@ -189,7 +190,7 @@ p{
 
     .main-image {
         width: 100%;
-        
+        height:auto;
     }
 
     .main-text {
