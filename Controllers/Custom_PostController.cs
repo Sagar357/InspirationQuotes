@@ -162,8 +162,8 @@ namespace EverydayPower.Controllers
             return RedirectToAction("Index", "Home" );
         }
 
-        [Route("Quotes/Edit/{id}")]
-        public ActionResult Edit(string id) 
+        [Route("Edit/{categoryid}/{id}")]
+        public ActionResult Edit(string categoryid ,string id) 
         {
             try
             {
@@ -180,9 +180,13 @@ namespace EverydayPower.Controllers
         }
 
         // GET: Custom_Post/Delete/5
-        public ActionResult Delete(int id)
+        [Route("Category/{category}/{id}")]
+
+        public ActionResult ViewCategoryItems(string category ,int id)
         {
-            return View();
+            Services.Post_Service services = new Services.Post_Service();
+            Get_Post_List result = services.PostGetByCategoryId(id);
+            return View("ViewCategoryItems" ,result);
         }
 
         // POST: Custom_Post/Delete/5

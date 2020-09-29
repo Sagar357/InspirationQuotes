@@ -249,6 +249,7 @@
 
     <script>
         $(document).ready(() => {
+
             $('#form-login').hide();
             $('.search-div').hide();
 
@@ -270,6 +271,7 @@
                             $('#form-login').show();
             });
 
+           
 
              $.ajax({
                 url: '/Custom_Post/GetCategoryList',
@@ -285,14 +287,27 @@
                 error: function () {
                     alert("Error   " + apidomainurl + 'UpdateUsers');
                 }
-            });
-
+             });
+            //$(".dropdown-body").mouseout(
+            //    event => {
+            //        debugger
+            //       event.currentTarget.classList.add("hide");
+            //    });
             $(".dropdown-heading").hover(event => {
                 var id = event.currentTarget.id;
                 var selector = "#" + id;
                 $(selector).next().show();
                 $(selector).next().removeClass('hide');
-                createListItems(selector);
+                debugger
+                if (selector === "#listmore") {
+                    $('.dropdown-body').css("position", "absolute");
+                    //var htmllist = $('#listmore').next().find('div');
+                    //$(selector).next().append(htmllist);
+
+                }
+                else {
+                                    createListItems(selector);
+                }
             },
                 event => {
 
@@ -328,20 +343,38 @@
                         @*<a href="@Url.Action("Index" ,"Home")" class="navbar-brand">LIFE MOTIVATION</a>*@
                     </li>`;
             var subhtml = "";
+            var morelist = "";
             $.each(data.list, function (index, element) {
-                if ($.inArray(arr, element.categoryId)==-1) {
+                if ($.inArray(arr, element.categoryId) == -1) {
 
 
                     arr[count] = element.categoryId;
                     count++;
-                    subhtml = subhtml + `<li class="scroll">
-                        <a href="@Url.Action("Index" ,"Home")" class="dropdown-heading" value="`+ element.categoryId + `" id = "dropdown-heading_` + element.categoryName.replace(' ', '-') + `">` + element.categoryName.toUpperCase() + `</a>
+                    if (count < 6) {
+
+                        subhtml = subhtml + `<li class="scroll">
+                        <a href="/Category/`+element.categoryName+`/`+element.categoryId+`" class="dropdown-heading" value="`+ element.categoryId + `" id = "dropdown-heading_` + element.categoryName.replace(' ', '-') + `">` + element.categoryName.toUpperCase() + `<i class="glyphicon glyphicon-triangle-bottom"></i></a>
                         <div class="dropdown-body">
                         </div>
                     </li>`;
+
+                    }
+                    else {
+                        morelist = morelist + `<div style="min-height:2em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
+                                            `+ element.categoryName.toUpperCase() + `
+                            <i class="glyphicon glyphicon-play"></i>
+                                    </div>`;
+                    }
                 }
             });
-
+            subhtml = subhtml+ `<li class="scroll">
+                        <a href="@Url.Action("Index" ,"Home")" class="dropdown-heading" id = "listmore">MORE
+                                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                        </a>
+                        <div class="dropdown-body">
+                        `+ morelist +`
+                        </div>
+                    </li>`;
             listHtml = listHtml +
                 subhtml + `
 <li>
@@ -365,36 +398,62 @@
         }
 
         var createListItems = (selector) => {
+            debugger
+           
+           
 
-            var categoryId = $(selector).attr('value');
-            if (categoryId != undefined || categoryId != '') {
-                $.ajax({
-                    url: '/GetByCategoryId/' + categoryId,
-                method: 'get',
-                contentType: "application/json",
-                dataType:"json",
-                processData: false,
-                async:false,
-                    success: function (data) {
-                        $('.dropdown-body').empty();
-                        $('.dropdown-body').css("position" ,"absolute");
-                        var listItem = '';
-                        $.each(data.list, function (index, element) {
-                            
-                            listItem = listItem+ `<div onclick="location.href='/Quotes/`+element.category+`/`+element.seoUrl+`';" style="min-height:2em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
+                var categoryId = $(selector).attr('value');
+                if (categoryId != undefined || categoryId != '') {
+                    $.ajax({
+                        url: '/GetByCategoryId/' + categoryId,
+                        method: 'get',
+                        contentType: "application/json",
+                        dataType: "json",
+                        processData: false,
+                        async: false,
+                        success: function (data) {
+                            $(selector).next().empty();
+                            $('.dropdown-body').css("position", "absolute");
+                            var listItem = '';
+                            $.each(data.list, function (index, element) {
+
+                                listItem = listItem + `<div onclick="location.href='/Quotes/` + element.category + `/` + element.seoUrl + `';" style="min-height:2em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; ">
                                             `+ element.shortName + `
                                     </div>`;
-                        });
+                            });
 
-                       var x = `<div style="min-height:3em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; "></div>`;
-                        $(selector).next().append(listItem);
-                },
-                error: function () {
-                    alert("Error   " + apidomainurl + 'UpdateUsers');
+                            var x = `<div style="min-height:3em;position:relative;border-color:#bfbaba;border-style:solid; border-width:1px ; background-color:white; min-width:16em;padding:0.6em; "></div>`;
+                            $(selector).next().append(listItem);
+                        },
+                        error: function () {
+                            alert("Error   " + apidomainurl + 'UpdateUsers');
+                        }
+                    });
                 }
-            });
-            }
+            
         }
+
+var scrollDiv = (event) => {
+                debugger
+                      event.preventDefault();
+    // Make sure this.hash has a value before overriding default behavior
+    if (event.currentTarget.children[0].hash !== "") {
+      // Prevent default anchor click behavior
+
+      // Store hash
+      var hash = event.currentTarget.children[0].hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $(event.currentTarget.attributes.target.value).animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+            }
     </script>
     <style>
         input {

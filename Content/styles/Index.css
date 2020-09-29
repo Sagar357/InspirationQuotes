@@ -72,14 +72,17 @@ p{
 }
 
 .cust{
-    margin-left:8% !important;
+    margin-left:15px !important;
     cursor:pointer;
+    margin-bottom:5em;
+    margin-right:15px !important;
 }
 
-.cust .col-md-3 {
-    margin-right: 17px;
-    width: 22% ;
-}
+    .cust .col-md-3 {
+        margin-right: 17px;
+        width: 22%;
+        height: 300px;
+    }
 
 .cust .col-md-6 {
     width: 45%;
@@ -92,6 +95,11 @@ p{
         -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);
     -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);
     box-shadow: 0px 0px 12px 5px rgba(0,0,0,0.31);
+    }
+
+    .info{
+        overflow:auto;
+        height:120px;
     }
 .info>p {
     font-size: 20px;
@@ -179,6 +187,9 @@ p{
     min-height: 1px;
     /*padding-right: 15px;
         padding-left: 15px;*/
+}
+.cust ::-webkit-scrollbar {
+    width: 0px;
 }
 
 

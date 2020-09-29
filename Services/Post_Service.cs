@@ -25,8 +25,8 @@ namespace EverydayPower.Services
                 foreach (var element in model.categoryList)
                 {
                     DataRow dr = dt.NewRow();
-                    dr["category_name"] = element.categoryName;
-                    dr["category_desc"] = element.categoryDesc;
+                    dr["category_name"] = element.categoryName.ToString().ToLower();
+                    dr["category_desc"] = element.categoryDesc.ToString();
                     dt.Rows.Add(dr);
                 }
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PortalConnectionString"].ToString()))
@@ -95,7 +95,7 @@ namespace EverydayPower.Services
                     foreach (var element in model.categoryList)
                     {
                         DataRow dr = dt.NewRow();
-                        dr["category_name"] = element.categoryName;
+                        dr["category_name"] = element.categoryName.ToString().ToLower();
                         dr["category_desc"] = element.categoryDesc;
                         dt.Rows.Add(dr);
                     }
@@ -188,6 +188,7 @@ namespace EverydayPower.Services
                     SqlParameter[] param= new SqlParameter[3];
                     dset=SqlHelper.ExecuteDataset(con ,CommandType.StoredProcedure , "tmp_prc_getPostData" ,param );
                     DataTable dtable = Post_Service.SetPgination(dset, pageIndex);
+                    //DataTable dtable = dset.Tables[0];
 
                     using (DataTable dt = dtable)
                     {
@@ -301,20 +302,29 @@ namespace EverydayPower.Services
             int row = 1;
             DataTable response = new DataTable();
             DataSet dataset = new DataSet();
-            foreach(DataRow dr in ds.Tables[1].Rows)
+            if (ds.Tables.Count>0)
             {
-                DataTable dt = ds.Tables[0].Select("category_name='"+ dr["category"].ToString() + "'" ).AsEnumerable().Skip(pageIndex * 10).Take(10).CopyToDataTable();
-                dataset.Tables.Add(dt);
+                if (ds.Tables[1].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[1].Rows)
+                        {
+                            DataTable dt = ds.Tables[0].Select("category_name='" + dr["category"].ToString() + "'").AsEnumerable().Skip(pageIndex * 10).Take(10).CopyToDataTable();
+                            dataset.Tables.Add(dt);
+                        }
+                        foreach (DataTable dt in dataset.Tables)
+                        {
+
+                            if (row < dataset.Tables.Count)
+                                dataset.Tables[0].Merge(dataset.Tables[row]);
+                            row++;
+                        }
+                        dataset.Tables[0].DefaultView.Sort = "createddate DESC";
+                        response = dataset.Tables[0];
+                    }
+                } 
             }
-            foreach (DataTable dt in dataset.Tables)
-            {
-                
-                if(row<dataset.Tables.Count)
-                dataset.Tables[0].Merge(dataset.Tables[row]);
-                row++;
-            }
-            dataset.Tables[0].DefaultView.Sort="createddate DESC";
-            response = dataset.Tables[0];
             return response;
         }
 
@@ -330,7 +340,7 @@ namespace EverydayPower.Services
                     con.Open();
                     SqlParameter[] param = new SqlParameter[3];
                     param[0] = new SqlParameter("@categoryId", CategoryId);
-                    param[1] = new SqlParameter("@isAll", 1);
+                    param[1] = new SqlParameter("@isAll", 0);
                     ds = SqlHelper.ExecuteDataset(con, CommandType.StoredProcedure, "tmp_prc_getPostData" ,param);
                     foreach (DataTable dt in ds.Tables)
                     {
