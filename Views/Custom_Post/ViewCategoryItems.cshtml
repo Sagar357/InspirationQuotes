@@ -1,8 +1,84 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ViewCategoryItems";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+    int size = 0;
+    int rowStart = 0;
+    int j = 0;
+    if (Model.list.Count % 4 == 0)
+    {
+        size = Model.list.Count / 4;
+    }
+    else
+    {
+        size = Model.list.Count / 4 + 1;
+    }
 }
+@model EverydayPower.Models.Get_Post_List
+    <div class="content-body">
 
-<h2>ViewCategoryItems</h2>
 
+
+        <div class="container-top text-center row">
+
+            <div class="col-md-12" style="height:400px;" onclick="location.href='/Quotes/quotes/quotes-for-him';">
+                <img src="../../UploadImage/15-30-2020-1.png" class="main-image">
+            </div>
+            <div class=" col-md-12 main-text " style="  position:absolute; background:black; opacity:0.6;">
+                Best Romantic &amp; Love Quotes to Make Him Special
+                <p>
+                    Life can feel impossible sometimes. Discover what to do when you feel like giving up. While giving up seems to...
+                </p>
+            </div>
+
+
+        </div>
+
+        <div class="outbox">
+
+        </div>
+
+        @for (int i = 0; i < size; i++)
+        {
+            <div class="row cust">
+                @for ( j = 0; j <4 ; j++)
+                {     <div class="card col-md-3 text-center sub-container cust-col-3" style="padding:0px;">
+                        <img class="card-img-top" width="291" height="200" src="../../UploadImage/@Model.list[count].postIconImage" onclick="location.href='/Quotes/quotes/quotes-for-him';">
+                        <div class="card-body info" id="card-latest-@count" onclick="location.href='/Quotes/quotes/quotes-for-him';">
+                            <p class="card-title">@Model.list[count].category</p>
+                            <span class="card-text">
+                                @Model.list[count].postUrl
+                                <div id="card-text-end" style="display:block;"></div>
+                            </span>
+                        </div>
+                        <div style="border: 1px solid lightgrey; border-top:none;" onclick="scrollDiv(event)" target="#card-latest-0">
+                            <a class="glyphicon glyphicon-chevron-down" href="#card-text-end">
+                            </a>
+                        </div>
+                    </div>
+                    if (count >= @Model.list.Count)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                      count++;
+                    }
+                }
+                @count;
+            </div>
+            
+        }
+
+
+    </div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.pageloader').hide();
+    });
+</script>
+<style>
+</style>

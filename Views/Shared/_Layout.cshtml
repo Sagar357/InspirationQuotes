@@ -157,7 +157,7 @@
 
         </div>
     </div>
-    <div>
+    <div class="content-body">
         @RenderBody()
     </div>
 
@@ -249,7 +249,15 @@
 
     <script>
         $(document).ready(() => {
-
+            $('body').click(function () {
+                var divs = $('.dropdown-body');
+                debugger
+                for (i = 0; i < divs.length; i++) {
+                    if (!divs[i].classList.contains('hide')) {
+                        divs[i].classList.toggle('hide');
+                    }
+                }
+            });
             $('#form-login').hide();
             $('.search-div').hide();
 
@@ -298,7 +306,6 @@
                 var selector = "#" + id;
                 $(selector).next().show();
                 $(selector).next().removeClass('hide');
-                debugger
                 if (selector === "#listmore") {
                     $('.dropdown-body').css("position", "absolute");
                     //var htmllist = $('#listmore').next().find('div');
@@ -398,7 +405,6 @@
         }
 
         var createListItems = (selector) => {
-            debugger
            
            
 
@@ -434,7 +440,6 @@
         }
 
 var scrollDiv = (event) => {
-                debugger
                       event.preventDefault();
     // Make sure this.hash has a value before overriding default behavior
     if (event.currentTarget.children[0].hash !== "") {
